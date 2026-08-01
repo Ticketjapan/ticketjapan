@@ -61,7 +61,7 @@
         <div class="btn-container">
             <button onclick="navigateTo('ticket-page')">代購票</button>
             <button onclick="navigateTo('product-page')">商品代購</button>
-            <button onclick="window.location.href='https://google.com'">代入金</button>
+            <button onclick="redirectToGoogleScript()">代入金</button>
         </div>
     </div>
 
@@ -82,12 +82,16 @@
     <script>
         // 頁面轉跳控制邏輯
         function navigateTo(pageId) {
-            // 隱藏所有頁面
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            // 顯示指定頁面
             document.getElementById(pageId).classList.add('active');
+        }
+
+        // 強效外部轉跳邏輯
+        function redirectToGoogleScript() {
+            var url = "https://script.google.com/macros/s/AKfycbxxNxVr3u2t7mW0KcQ_mY6tNLcNNYkuFA08jyVOm8V_hp3Xn_BNogclbM50JszldqTXsQ/exec";
+            window.top.location.href = url;
         }
     </script>
 </body>
