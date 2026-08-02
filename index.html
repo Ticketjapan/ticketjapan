@@ -19,23 +19,23 @@
         .privacy-text { background: #f0fdfa; border-left: 4px solid #16a34a; padding: 12px; border-radius: 6px; font-size: 15px; color: #166534; margin-top: 15px; line-height: 1.7; }
         h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
         .btn-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 10px; }
-                /* 霧霾藍系主按鈕 (已修正為 45度傾斜、淺70%至原色漸變) */
+        /* 霧霾藍對稱漸變主按鈕 (兩邊深、中間最淺 70%) */
         button.main-btn { 
             padding: 16px; 
             font-size: 16px; 
             font-weight: 600; 
             color: #fff; 
-            /* 45deg 斜角漸變：從淺 70% 的霧霾藍過渡到 LOGO 原色 */
-            background: linear-gradient(45deg, #cfd8dc, #607d8b); 
+            /* 45度斜角：從原色過渡到中間淺70%，再過渡回原色 */
+            background: linear-gradient(45deg, #607d8b 0%, #cfd8dc 50%, #607d8b 100%); 
             border: none; 
             border-radius: 10px; 
             cursor: pointer; 
             transition: all 0.2s; 
             box-shadow: 0 4px 6px rgba(96,125,139,0.15); 
         }
-        /* 懸停時按鈕微微變暗 */
+        /* 懸停時按鈕外觀微微變暗 */
         button.main-btn:hover { 
-            background: linear-gradient(45deg, #b0bec5, #455a64);
+            background: linear-gradient(45deg, #455a64 0%, #b0bec5 50%, #455a64 100%);
             transform: translateY(-1px); 
         }
         .back-btn { margin-top: 25px; background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; }
