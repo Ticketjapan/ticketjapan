@@ -15,8 +15,10 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; background-color: #f4f6f8; color: #333; }
         .page { display: none; width: 100%; max-width: 450px; background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); box-sizing: border-box; border: 1px solid #eaeaea; }
         .active { display: block; }
-        .logo-container { display: flex; justify-content: center; margin-bottom: 15px; }
-        .logo-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #eaeaea; background-color: #fff; }
+        
+        /* 確保 LOGO 容器與圖片絕對置中 */
+        .logo-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: 15px; text-align: center; }
+        .logo-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #eaeaea; background-color: #fff; margin: 0 auto; display: block; }
         
         /* 主頁描述與聯絡資訊樣式（15px 並優化行距） */
         .home-desc { font-size: 15px; line-height: 1.7; color: #4a5568; margin-bottom: 20px; background: #f8fafc; padding: 16px; border-radius: 10px; border: 1px solid #e2e8f0; }
@@ -60,6 +62,7 @@
 
     <!-- 1. 首頁 -->
     <div id="home-page" class="page active">
+        <!-- 修正對齊樣式確保圓形 LOGO 絕對置中 -->
         <div class="logo-container">
             <img src="logo.jpg" alt="Logo" class="logo-img" onerror="this.src='logo.png';this.onerror=null;this.src='logo.jpeg';">
         </div>
@@ -70,7 +73,7 @@
             請帶link報價，收款後代購並提供截圖：<br><br>
             🌸 FB/IG：Ticketjapan<br>
             💬 <a href="https://m.me" target="_blank">https://m.me (Messager)</a><br>
-            💬 <a href="https://bit.ly" target="_blank">https://bit.ly (Whatsapp)</a>
+            💬 <a href="intent://send/85291626197#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" target="_blank">https://bit.ly (Whatsapp)</a>
         </div>
 
         <h2>請選擇服務</h2>
@@ -106,7 +109,7 @@
         <div class="example-box">
             <span class="example-highlight">例: 一場演出2張門票總額20000円, 手數料合計950円</span>
             <strong>Case 1: 抽票 (平台有後付選項)</strong><br>&gt;&gt; 先付代抽$65, 當選後再補票款[(20000+950)*0.057+35] = $1229<br><br>
-            <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>&gt;&gt; 需預付全款, 落選的話扣除$65代抽費用後退回餘額<br>全款: [(20000+950)*0.057+100] = $1294<br>落選退回: $1229 (1294-65)<br><br>
+            <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>&gt;&gt; 需預付全款,落選的話扣除$65代抽費用後退回餘額<br>全款: [(20000+950)*0.057+100] = $1294<br>落選退回: $1229 (1294-65)<br><br>
             <strong>Case 3: 直接購票/搶飛</strong><br>[(20000+950)*0.057+100] = $1294
         </div>
         
@@ -117,8 +120,8 @@
             <div>(C) 代放票通/JAM【有條件，平台手續費較高】</div>
         </div>
         
-        <!-- 已更換為全球標準通用 API 長網址格式與正確區碼，徹底解決轉跳異常問題 -->
-        <a href="https://whatsapp.com" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
+        <!-- 換成底層原生 App 萬用調用協定，繞過多重帳號 DNS 解析報錯阻擋 -->
+        <a href="intent://send/85291626197#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
         
         <h3 class="section-title">⭐⭐ Live配信, 門票 ⭐⭐</h3>
         <div class="links-grid">
@@ -156,8 +159,3 @@
             document.getElementById(pId).classList.add('active');
         }
         function redirectToGoogleScript() {
-            window.top.location.href = "https://google.com";
-        }
-    </script>
-</body>
-</html>
