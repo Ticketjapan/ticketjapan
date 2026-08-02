@@ -83,21 +83,24 @@
                     <div style="font-size: 14px; font-weight: bold; color: #64748b; padding-top: 15px;">円</div>
                 </div>
 
-                <!-- 4個加選項目（對照 Excel 4~7行） -->
+                <!-- 4個加選項目（已修改為單選鈕，同一時間只能四選一） -->
                 <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #334155;">
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="checkbox" id="chk-hotel" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 郵送酒店 (+430円)
+                        <input type="radio" name="ticket-option" id="chk-hotel" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 郵送酒店 (+430円)
                     </label>
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="checkbox" id="chk-ems" onchange="runTicketCalculation()" style="width:auto; margin:0;"> EMS (+1900円)
+                        <input type="radio" name="ticket-option" id="chk-ems" onchange="runTicketCalculation()" style="width:auto; margin:0;"> EMS (+1900円)
                     </label>
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="checkbox" id="chk-ship" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 夾貨到港 (+$13)
+                        <input type="radio" name="ticket-option" id="chk-ship" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 夾貨到港 (+$13)
                     </label>
                     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="checkbox" id="chk-meet" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 票通同行/見面取電子飛 (+$50)
+                        <input type="radio" name="ticket-option" id="chk-meet" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 票通同行/見面取電子飛 (+$50)
                     </label>
+                    <!-- 新增一個隱藏的清除按鈕，如果客人想取消所有勾選可以點擊 -->
+                    <span onclick="clearTicketRadio()" style="font-size:12px; color:#64748b; text-decoration:underline; cursor:pointer; margin-top:2px; width:fit-content;">清除已選項目</span>
                 </div>
+
 
                 <!-- 試算結果輸出框 -->
                 <div id="calc-ticket-result" style="background:#fff; border:1px dashed #cbd5e1; padding:12px; border-radius:8px; margin-top:15px; text-align:center; font-weight:bold; font-size:15px; color:#334155;">
@@ -131,6 +134,14 @@
                     resBox.style.color = "#334155";
                     return;
                 }
+                        // 清除單選鈕並重新計算
+            function clearTicketRadio() {
+                var radios = document.getElementsByName('ticket-option');
+                for (var i = 0; i < radios.length; i++) {
+                    radios[i].checked = false;
+                }
+                runTicketCalculation(); // 重新觸發計算，把加外金額扣除
+            }
 
                 var baseJpyTotal = a2 + d2;
                 
