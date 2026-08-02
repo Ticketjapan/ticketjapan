@@ -19,14 +19,14 @@
         .privacy-text { background: #f0fdfa; border-left: 4px solid #16a34a; padding: 12px; border-radius: 6px; font-size: 15px; color: #166534; margin-top: 15px; line-height: 1.7; }
         h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
         .btn-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 10px; }
-                /* 漸變色主按鈕 */
+        /* 漸變色主按鈕 (已修正為 45度傾斜) */
         button.main-btn { 
             padding: 16px; 
             font-size: 16px; 
             font-weight: 600; 
             color: #fff; 
-            /* 新增左上到右下的線性漸變 */
-            background: linear-gradient(135deg, #D0D0D0, #6C6C6C); 
+            /* 改為 45deg 傾斜漸變 */
+            background: linear-gradient(45deg, #6C6C6C, #D0D0D0); 
             border: none; 
             border-radius: 10px; 
             cursor: pointer; 
@@ -35,7 +35,7 @@
         }
         /* 懸停時按鈕微微變暗 */
         button.main-btn:hover { 
-            background: linear-gradient(135deg, #b8b8b8, #545454);
+            background: linear-gradient(45deg, #545454, #b8b8b8);
             transform: translateY(-1px); 
         }
         .back-btn { margin-top: 25px; background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; }
