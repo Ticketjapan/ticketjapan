@@ -55,7 +55,7 @@
                 <label for="orderTel">請輸入登記電話 (TEL)：</label>
                 <input type="number" id="orderTel" inputmode="numeric">
             </div>
-            <button class="search-btn" onclick="executeQuery()">立即查詢訂單</button>
+            <button class="search-btn" onclick="executeQuery()">查詢訂單</button>
         </div>
 
         <!-- 查詢結果動態顯示區域 -->
@@ -87,7 +87,7 @@
             resultBox.style.border = "1px solid #cbd5e1";
             resultBox.style.color = "#475569";
             resultBox.style.textAlign = "center";
-            resultBox.innerHTML = "⏳ 正在即時安全連線數據庫...";
+            resultBox.innerHTML = "⏳ 數據連線中...";
 
             try {
                 // 🔴 請把下方引號內的網址，更換為你在 Apps Script 重新部署後得到的全新「網頁應用程式網址」
@@ -109,12 +109,12 @@
                             <span>📋 訂單資料 (${order.type})</span>
                             <span style="color:#15803d;">[${order.progress}]</span>
                         </div>
-                        <div class="result-item"><strong>訂單編號：</strong>${order.id}</div>
-                        <div class="result-item"><strong>委託日期：</strong>${order.date}</div>
-                        <div class="result-item"><strong>代購商品：</strong>${order.name}</div>
-                        <div class="result-item"><strong>官方連結：</strong>${linkHtml}</div>
+                        <div class="result-item"><strong>編號：</strong>${order.id}</div>
+                        <div class="result-item"><strong>訂購日期：</strong>${order.date}</div>
+                        <div class="result-item"><strong>商品：</strong>${order.name}</div>
+                        <div class="result-item"><strong>連結：</strong>${linkHtml}</div>
                         <div class="result-item" style="margin-top:8px;padding-top:8px;border-top:1px dashed #bbf7d0;">
-                            <strong>最新物流狀況：</strong><br>
+                            <strong>狀況：</strong><br>
                             <span style="font-weight:600;color:#166534;">💡 ${order.info}</span>
                         </div>
                     `;
