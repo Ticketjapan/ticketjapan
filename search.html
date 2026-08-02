@@ -12,16 +12,33 @@
         .logo-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: 15px; text-align: center; }
         .logo-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #eaeaea; background-color: #fff; margin: 0 auto; display: block; }
         h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
-        .search-box { background: #fdf4ff; border: 1px solid #fbcfe8; padding: 16px; border-radius: 12px; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #9d174d; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
-        .search-btn { width: 100%; padding: 14px; background-color: #a21caf; color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(162,28,175,0.15); }
-        .search-btn:hover { background-color: #86198f; transform: translateY(-1px); }
-        .result-box { display: none; margin-top: 20px; padding: 16px; border-radius: 12px; box-sizing: border-box; }
-        .status-success { background: #fff0f5; border-left: 4px solid #d81b60; color: #495057; border: 1px solid #f4b2cf; border-left: 4px solid #d81b60; }
-        .status-fail { background: #fef2f2; border-left: 4px solid #dc2626; color: #991b1b; border: 1px solid #fecaca; border-left: 4px solid #dc2626; text-align: center; font-weight: bold; }
-        .result-title { font-size: 16px; font-weight: bold; border-bottom: 1px dashed #f4b2cf; padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; color: #880e4f; }
+                /* 查詢表單改為質感橙黃色系 */
+        .search-box { 
+            background: #fffbeb; 
+            border: 1px solid #fde68a; 
+        }
+        .form-group label { 
+            color: #b45309; 
+        }
+        .search-btn { 
+            background-color: #ea580c; 
+            box-shadow: 0 4px 6px rgba(234,88,12,0.15); 
+        }
+        .search-btn:hover { 
+            background-color: #c2410c; 
+        }
+        
+        /* 查詢結果卡片改為和諧暖橙色 */
+        .status-success { 
+            background: #fff7ed; 
+            border: 1px solid #ffedd5; 
+            border-left: 4px solid #f97316; 
+        }
+        .result-title { 
+            border-bottom: 1px dashed #fed7aa; 
+            color: #c2410c; 
+        }
+
         .result-item { font-size: 14.5px; line-height: 1.7; margin-bottom: 6px; }
         .result-item strong { color: #1e293b; }
         .whatsapp-btn { display: flex; align-items: center; justify-content: center; background-color: #00BB00; color: #fff; text-decoration: none; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 10px; margin-top: 20px; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,187,0,0.2); transition: all 0.2s; }
