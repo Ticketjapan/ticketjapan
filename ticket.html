@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>門票及on-line配信 - Ticketjapan</title>
+    <style>
+        /* 封鎖文字選取複製功能 */
+        * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; background-color: #f4f6f8; color: #333; }
+        .page { width: 100%; max-width: 450px; background: #fff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); box-sizing: border-box; border: 1px solid #eaeaea; }
+        .logo-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: 15px; text-align: center; }
+        .logo-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #eaeaea; background-color: #fff; margin: 0 auto; display: block; }
+        h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
+        .back-btn { margin-top: 25px; background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; }
+        .back-btn:hover { background-color: #616a6b; }
+        
+        .info-card { background: #fff0f5; border-left: 4px solid #d81b60; padding: 14px; border-radius: 8px; margin-bottom: 20px; font-size: 13.5px; line-height: 1.6; }
+        .fee-title-bg { background-color: #f4b2cf; color: #5c0632; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 8px; font-weight: bold; }
+        .info-card ul { margin: 8px 0 0 0; padding-left: 18px; color: #495057; }
+        .example-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; margin-bottom: 20px; color: #475569; }
+        .example-highlight { background-color: #8E8E8E; color: #ffffff; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 12px; font-weight: bold; }
+        
+        .cancel-box { background: #f0fdfa; border-left: 4px solid #0d9488; padding: 14px; border-radius: 8px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; color: #115e59; }
+        .cancel-title-bg { background-color: #b2ede2; color: #073b37; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 8px; font-weight: bold; }
+        .cancel-box div { margin-bottom: 5px; }
+        .whatsapp-btn { display: flex; align-items: center; justify-content: center; background-color: #00BB00; color: #fff; text-decoration: none; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 10px; margin-bottom: 28px; box-shadow: 0 4px 10px rgba(0,187,0,0.2); transition: all 0.2s; }
+        .whatsapp-btn:hover { background-color: #009900; transform: translateY(-1px); }
+        
+        .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .links-grid a { display: block; padding: 11px; background: #f1f5f9; color: #334155; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 500; text-align: center; border: 1px solid #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .links-grid a:hover { background: #e2e8f0; color: #0f172a; }
+        .section-title { font-size: 14px; margin-bottom: 12px; text-align: center; color: #64748b; font-weight: 600; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="page">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo" class="logo-img" onerror="this.src='logo.png';this.onerror=null;this.src='logo.jpeg';">
+        </div>
+        <h2>1️⃣ 門票及on-line配信</h2>
+        <div class="info-card">
+            <span class="fee-title-bg">💟 收費(hkd) = 円*0.057+服務費※【每場計】</span>
+            <ul>
+                <li>※ 服務費$65 for 抽票♤及配信</li>
+                <li>※ 服務費$65 for 直接購票 6000円以下 / $100 for 6000円以上</li>
+                <li>※ 票通同行票&amp;需見面領取的電子飛另+$50</li>
+                <li>♤ 抽票落選可免費續抽同場，當選就可以補票款購票</li>
+            </ul>
+        </div>
+        <div class="example-box">
+            <span class="example-highlight">例: 一場演出2張門票總額20000円, 手數料合計950円</span>
+            <strong>Case 1: 抽票 (平台有後付選項)</strong><br>&gt;&gt; 先付代抽$65, 當選後再補票款[(20000+950)*0.057+35] = $1229<br><br>
+            <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>&gt;&gt; 需預付全款, 落選的話扣除$65代抽費用後退回餘額<br>全款: [(20000+950)*0.057+100] = $1294<br>落選退回: $1229 (1294-65)<br><br>
+            <strong>Case 3: 直接購票/搶飛</strong><br>[(20000+950)*0.057+100] = $1294
+        </div>
+        <div class="cancel-box">
+            <span class="cancel-title-bg">◎ 購票後無法成行的安排</span>
+            <div>(A) 聯絡我地開公司發票比你claim旅遊保險</div>
+            <div>(B) 官方平台原價Resell【有條件，平台收取少量手續費】</div>
+            <div>(C) 代放票通/JAM【有條件，平台手續費較高】</div>
+        </div>
+        
+        <a href="https://bit.ly" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
+        
+        <h3 class="section-title">⭐⭐ Live配信, 門票 ⭐⭐</h3>
+        <div class="links-grid">
+            <a href="http://ticket.co.jp" target="_blank">🔹 票通 🐮</a>
+            <a href="https://ticketjam.jp" target="_blank">🔸 ticketjam 🐮</a>
+            <a href="http://eplus.jp" target="_blank">🔹 EPLUS </a>
+            <a href="https://pia.jp" target="_blank">🔸 チケットぴあ</a>
+            <a href="http://l-tike.com" target="_blank">🔹 ローチケ</a>
+            <a href="https://cnplayguide.com" target="_blank">🔸 CNPLAYガイド</a>
+            <a href="https://livepocket.jp" target="_blank">🔹 Livepocket</a>
+            <a href="https://tickebo.jp" target="_blank">🔸 Ticketboard</a>
+            <a href="https://7ticket.jp" target="_blank">🔹 711 Ticket</a>
+            <a href="https://tixplus.jp" target="_blank">🔸 Tixplus trade</a>
+            <a href="https://rakuten.co.jp" target="_blank">🔹 楽天チケット</a>
+            <a href="https://e-ticketbook.com" target="_blank">🔸 Ticketbook</a>
+        </div>
+        <button class="back-btn" onclick="window.location.href='index.html'">返回主選單</button>
+    </div>
+</body>
+</html>
