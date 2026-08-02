@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品代購服務 - Ticketjapan</title>
+    <style>
+        /* 封鎖文字選取複製功能 */
+        * { 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background-color: #f4f6f8; 
+            color: #333; 
+        }
+        .page { 
+            width: 100%; 
+            max-width: 450px; 
+            background: #fff; 
+            padding: 24px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04); 
+            box-sizing: border-box; 
+            border: 1px solid #eaeaea; 
+        }
+        .logo-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%; 
+            margin-bottom: 15px; 
+            text-align: center; 
+        }
+        .logo-img { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 2px solid #eaeaea; 
+            background-color: #fff; 
+            margin: 0 auto; 
+            display: block; 
+        }
+        h2 { 
+            text-align: center; 
+            margin-top: 0; 
+            margin-bottom: 20px; 
+            color: #2c3e50; 
+            font-size: 20px; 
+            font-weight: 700; 
+        }
+        .info-card { 
+            background: #fff0f5; 
+            border-left: 4px solid #d81b60; 
+            padding: 14px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            font-size: 13.5px; 
+            line-height: 1.6; 
+        }
+        .fee-title-bg { 
+            background-color: #f4b2cf; 
+            color: #5c0632; 
+            padding: 6px 10px; 
+            border-radius: 6px; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: bold; 
+        }
+        .info-card ul { 
+            margin: 8px 0 0 0; 
+            padding-left: 18px; 
+            color: #495057; 
+        }
+        .example-box { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            padding: 14px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            line-height: 1.7; 
+            margin-bottom: 20px; 
+            color: #475569; 
+        }
+        .example-highlight { 
+            background-color: #8E8E8E; 
+            color: #ffffff; 
+            padding: 6px 10px; 
+            border-radius: 6px; 
+            display: block; 
+            margin-bottom: 12px; 
+            font-weight: bold; 
+        }
+        .cancel-box { 
+            background: #f0fdfa; 
+            border-left: 4px solid #0d9488; 
+            padding: 14px; 
+            border-radius: 8px; 
+            margin-bottom: 24px; 
+            font-size: 13.5px; 
+            line-height: 1.6; 
+            color: #115e59; 
+        }
+        .cancel-title-bg { 
+            background-color: #b2ede2; 
+            color: #073b37; 
+            padding: 6px 10px; 
+            border-radius: 6px; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: bold; 
+        }
+        .cancel-box div { 
+            margin-bottom: 5px; 
+        }
+        .whatsapp-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background-color: #00BB00; 
+            color: #fff; 
+            text-decoration: none; 
+            padding: 15px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            border-radius: 10px; 
+            margin-bottom: 28px; 
+            box-shadow: 0 4px 10px rgba(0,187,0,0.2); 
+            transition: all 0.2s; 
+            cursor: pointer; 
+        }
+        .whatsapp-btn:hover { 
+            background-color: #009900; 
+            transform: translateY(-1px); 
+        }
+        .back-btn { 
+            background-color: #7f8c8d; 
+            width: 100%; 
+            border: none; 
+            padding: 16px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: #fff; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            box-shadow: 0 4px 6px rgba(127,140,141,0.15); 
+        }
+        .back-btn:hover { 
+            background-color: #616a6b; 
+        }
+        .links-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        .links-grid a { 
+            display: block; 
+            padding: 11px; 
+            background: #f1f5f9; 
+            color: #334155; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            font-weight: 500; 
+            text-align: center; 
+            border: 1px solid #e2e8f0; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+        .links-grid a:hover { 
+            background: #e2e8f0; 
+            color: #0f172a; 
+        }
+        .section-title { 
+            font-size: 14px; 
+            margin-bottom: 12px; 
+            text-align: center; 
+            color: #64748b; 
+            font-weight: 600; 
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="page">
+        <!-- 頂端置中圓形 LOGO -->
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo" class="logo-img" onerror="this.src='logo.png';this.onerror=null;this.src='logo.jpeg';">
+        </div>
+
+        <h2>2️⃣ 商品代購代拍（非門票）</h2>
+
+        <!-- 收費說明卡片 -->
+        <div class="info-card">
+            <span class="fee-title-bg">💟 收費 = 円*0.056+服務費$80+國際運費 (小咭可免運)</span>
+            <ul>
+                <li>※ $80 服務費包含 6 個 links（可同時結帳的計 1 link，48 小時內加的 link 計入同一單）</li>
+                <li>💟 預設空運送港 $26 / 磅</li>
+                <li>📦 官方出貨後 7~10 日到港，mercari 會再長一點</li>
+                <li>🎁 請於發出到貨通知後一個月內領取，逾期有保管費用，失聯絡者 2 個月後棄件處理，不另行通知</li>
+            </ul>
+        </div>
+
+        <!-- 取貨方式莫蘭迪綠色卡片 -->
+        <div class="cancel-box">
+            <span class="cancel-title-bg">◎ 到港後取貨方式</span>
+            <div>✔ SF到付，平郵先補郵及自行承擔寄失風險</div>
+            <div>✔ 可夾時間在深水埗站內交收</div>
+            <div>✔ 小件可於荔枝角香工C座《限糖生活》取貨點自取</div>
+            <div>🏢 可代寄海外，集運倉，日本酒店 &amp; 日本郵局自取</div>
+            <div>✅ EMS / DHL / 宅急便... 等運費另報</div>
+        </div>
+
+        <!-- 代購流程灰色區塊 -->
+        <div class="example-box">
+            <span class="example-highlight">🛒 代購流程</span>
+            1️⃣ Send link報價，支付後購買<br>
+            2️⃣ 買唔到全數退款，無任何費用<br>
+            3️⃣ 購入後提供截圖及通知預計到貨時間<br>
+            4️⃣ 貨到香港送出或相約取貨
+        </div>
+
+        <!-- 代bid流程灰色區塊 -->
+        <div class="example-box">
+            <span class="example-highlight">🔨 代bid流程</span>
+            1️⃣ Send link及max bid報價<br>
+            <i>eg: https://xxx ～ 最高bid 8000yen</i><br>
+            <i>eg: https://yyy ～ 最高bid 6500yen</i><br>
+            2️⃣ 報價後預付全款<br>
+            3️⃣ 本站下bid，期間若max bid被超過，可隨時通知追bid<br>
+            4️⃣ 🅰️ 結標及確定送料後會給截圖，安排補款或退差價<br>
+            4️⃣ 🅱️ 沒bid到全額退款，亦可48小時內改bid其他商品<br>
+            <strong>⭕ 可代發問/查詢能否同梱等，但日拍賣家一般不設議價，已有人BID緊既商品通常不設提前結標</strong>
+        </div>
+
+        <!-- 代購需知橘色警告卡片 -->
+        <div class="info-card" style="background:#fff7ed; border-left:4px solid #f97316;">
+            <span class="fee-title-bg" style="background-color:#ffedd5; color:#c2410c;">⚠️ 代購/代拍需知</span>
+            <ul>
+                <li>→</li>
+                <li>📎 可代問賣家問題，2次問完或報價後無回應者blacklist</li>
+                <li>📎 普通郵便或無追蹤號既貨件不負責寄失風險，購買前可加錢改掛號</li>
+                <li>📎 請自行判斷商品質量/假偽，購入後不可退換</li>
+                <li>📎 收貨只作簡單點收，要代拆包裝品檢和拍照每項商品追加300円</li>
+                <li>📎 貨到港後才發現問題無法追討，保障起見請加檢查費用，收貨後先行拍照</li>
+                <li>→</li>
+            </ul>
+        </div>
+
+        <!-- WhatsApp 聯絡短網址按鈕 -->
+        <a href="https://bit.ly" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
+
+        <h3 class="section-title">⭐⭐ 購物網站推介 ⭐長</h3>
+        
+        <!-- 14個購物網站排版 -->
+        <div class="links-grid">
+            <a href="https://yahoo.co.jp" target="_blank">🔹 YAHOO日拍</a>
+            <a href="https://mercari.com" target="_blank">🔸 Mercari</a>
+            <a href="https://fril.jp" target="_blank">🔹 FRIL</a>
+            <a href="https://yahoo.co.jp" target="_blank">🔸 Paypay</a>
+            <a href="https://famikura-store.jp" target="_blank">🔹 STARTO online</a>
+            <a href="https://suruga-ya.jp" target="_blank">🔸 駿河屋</a>
+            <a href="https://omni7.jp" target="_blank">🔹 711通販</a>
+            <a href="https://p-bandai.jp" target="_blank">🔸 PREMIUM BANDAI</a>
+            <a href="https://rakuten.co.jp" target="_blank">🔹 日本樂天</a>
+            <a href="https://amazon.co.jp" target="_blank">🔸 日本Amazon</a>
+            <a href="https://zozo.jp" target="_blank">🔹 ZOZOTOWN</a>
+            <a href="https://grail.bz" target="_blank">🔸 GRL</a>
+            <a href="https://thebase.in" target="_blank">🔹 BASE</a>
+            <a href="https://toranoana.jp" target="_blank">🔸 虎穴</a>
+        </div>
+
+        <p style="font-size:13px; color:#64748b; text-align:center; line-height:1.5; margin-top:0; margin-bottom:20px; padding:0 5px;">
+            🍀 其他不收海外信用咭，不發送集運倉及代金引換的網站也可以代購
+        </p>
+
+        <!-- 返回主首頁按鈕 -->
+        <button class="back-btn" onclick="window.location.href='index.html'">返回主選單</button>
+    </div>
+
+</body>
+</html>
