@@ -165,9 +165,10 @@
                     currentHkTotal += 50;
                 }
 
-                // 3. 無條件進位輸出港幣
+                // 3. 無條件進位輸出港幣 (已更換金額顏色為 #006000)
                 var finalHkPrice = Math.ceil(currentHkTotal);
-                resBox.innerHTML = `預估費用：<span style="font-size: 18px; color: #dc2626;">HKD $${finalHkPrice}</span>`;
+                resBox.innerHTML = `預估費用：<span style="font-size: 18px; color: #006000;">HKD $${finalHkPrice}</span>`;
+
             }
         </script>
         <!-- 門票試算功能區塊結束 -->
