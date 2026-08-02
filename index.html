@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>客戶服務系統</title>
+    <title>Ticketjapan 日本門票/日本代購</title>
     <style>
         * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
         body { font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; background-color: #f4f6f8; color: #333; }
@@ -19,23 +19,23 @@
         .privacy-text { background: #f0fdfa; border-left: 4px solid #16a34a; padding: 12px; border-radius: 6px; font-size: 15px; color: #166534; margin-top: 15px; line-height: 1.7; }
         h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
         .btn-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 10px; }
-        /* 藍色系主按鈕 (已修正為 45度傾斜藍色漸變) */
+                /* 霧霾藍系主按鈕 (已修正為 45度傾斜、淺70%至原色漸變) */
         button.main-btn { 
             padding: 16px; 
             font-size: 16px; 
             font-weight: 600; 
             color: #fff; 
-            /* 使用 LOGO 帶有的商務深藍到晴空藍漸變 */
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6); 
+            /* 45deg 斜角漸變：從淺 70% 的霧霾藍過渡到 LOGO 原色 */
+            background: linear-gradient(45deg, #cfd8dc, #607d8b); 
             border: none; 
             border-radius: 10px; 
             cursor: pointer; 
             transition: all 0.2s; 
-            box-shadow: 0 4px 6px rgba(30,58,138,0.15); 
+            box-shadow: 0 4px 6px rgba(96,125,139,0.15); 
         }
         /* 懸停時按鈕微微變暗 */
         button.main-btn:hover { 
-            background: linear-gradient(45deg, #172554, #2563eb);
+            background: linear-gradient(45deg, #b0bec5, #455a64);
             transform: translateY(-1px); 
         }
         .back-btn { margin-top: 25px; background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; }
