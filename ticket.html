@@ -135,14 +135,16 @@
                     resBox.style.color = "#334155";
                     return;
                 }
-                        // 清除單選鈕並重新計算
-            function clearTicketRadio() {
+                // 修正後的清除單選鈕函式
+                function clearTicketRadio() {
                 var radios = document.getElementsByName('ticket-option');
                 for (var i = 0; i < radios.length; i++) {
-                    radios[i].checked = false;
+                    radios[i].checked = false; // 取消所有點選狀態
                 }
-                runTicketCalculation(); // 重新觸發計算，把加外金額扣除
+                // 🔴 關鍵修正：必須手動重新執行一次計算，金額才會即時扣除歸零！
+                runTicketCalculation(); 
             }
+
 
                 var baseJpyTotal = a2 + d2;
                 
