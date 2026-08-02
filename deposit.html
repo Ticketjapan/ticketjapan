@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便利店入金/代付試算 - Ticketjapan</title>
+    <style>
+        /* 封鎖文字選取複製功能 */
+        * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; background-color: #f4f6f8; color: #333; }
+        .page { width: 100%; max-width: 450px; background: #fff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); box-sizing: border-box; border: 1px solid #eaeaea; }
+        .logo-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-bottom: 15px; text-align: center; }
+        .logo-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 2px solid #eaeaea; background-color: #fff; margin: 0 auto; display: block; }
+        h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
+        
+        .notice { background: #f0fdfa; border-left: 4px solid #0d9488; padding: 14px; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; line-height: 1.6; color: #115e59; }
+        .calc-box { background: #fdf2f8; border: 1px solid #fbcfe8; padding: 16px; border-radius: 10px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #9d174d; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        .checkbox-container { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; cursor: pointer; font-size: 14px; font-weight: 600; color: #334155; }
+        
+        .calc-btn { width: 100%; padding: 14px; background-color: #db2777; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(219,39,119,0.15); transition: all .2s; }
+        .calc-btn:hover { background-color: #be185d; }
+        .result-box { display: none; background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 10px; margin-top: 20px; }
+        .hk-price { font-size: 24px; font-weight: bold; color: #dc2626; text-align: center; margin: 10px 0; }
+        .step-title { font-size: 14px; font-weight: bold; color: #1e293b; margin-bottom: 8px; }
+        
+        .msg-area { width: 100%; height: 100px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 13.5px; color: #475569; background-color: #fff; resize: none; margin-bottom: 10px; -webkit-user-select: text; user-select: text; }
+        .copy-btn { width: 100%; padding: 10px; background-color: #64748b; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+        .whatsapp-btn { display: flex; align-items: center; justify-content: center; background-color: #00BB00; color: #fff; text-decoration: none; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,187,0,0.2); transition: all .2s; }
+        .back-btn { background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; margin-top: 25px; box-shadow: 0 4px 6px rgba(127,140,141,0.15); }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="page">
+        <!-- 置中圓形 LOGO -->
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo" class="logo-img" onerror="this.src='logo.png';this.onerror=null;this.src='logo.jpeg';">
+        </div>
+
+        <h2>3️⃣ 便利店入金/代付試算</h2>
+
+        <!-- 注意事項 -->
+        <div class="notice">
+            <h3 style="margin-top:0; font-size:15px; color:#0f766e; margin-bottom:8px;">💡 注意事項：</h3>
+            <div>1. 限購物入金給商店，不接受轉帳到個人戶口</div>
+            <div>2. 收貨/收票等後續需自行處理，萬一訂單取消有機會無法代退款</div>
+            <div>3. 17:00 hk time 前支付，大部分情況能即日入好</div>
+            <div>4. 急單請whatsapp查詢，或有附加費用</div>
+            <div>5. 如多於一單，請每張生成一份報價</div>
+        </div>
+
+        <!-- 試算輸入 -->
+        <div class="calc-box">
+            <div class="form-group">
+                <label for="jpyAmount">日元金額 (¥)：</label>
+                <input type="number" id="jpyAmount" placeholder="請輸入每單日元金價" min="0" inputmode="numeric">
+            </div>
+            <div class="checkbox-container" onclick="toggleCheckbox()">
+                <input type="checkbox" id="jpyFee" onclick="event.stopPropagation();">
+                <label for="jpyFee">銀行轉帳手數料 (+¥250)</label>
+            </div>
+            <button class="calc-btn" onclick="calculateQuote()">報價</button>
+        </div>
+
+        <!-- 結果與訊息複製 -->
+        <div id="result" class="result-box">
+            <div style="font-size: 15px; color: #444; text-align: center; font-weight: bold;">港幣報價</div>
+            <div class="hk-price" id="hkPrice">HK$ 0</div>
+            <hr style="border:0; border-top:1px solid #cbd5e1; margin:15px 0;">
+            <div class="step-title">第一步：複製訂單訊息</div>
+            <textarea id="msgContent" class="msg-area" readonly></textarea>
+            <button onclick="copyMessage()" class="copy-btn" id="cpBtn">📋 複製訂單訊息</button>
+            <div class="step-title" style="margin-top: 16px;">第二步：請在 WhatsApp 貼上</div>
+            <a href="https://bit.ly" target="_blank" class="whatsapp-btn">💬 WhatsApp 落單</a>
+        </div>
+
+        <button class="back-btn" onclick="window.location.href='index.html'">返回主選單</button>
+    </div>
+
+    <script>
+        function toggleCheckbox() {
+            var e = document.getElementById('jpyFee');
+            e.checked = !e.checked;
+        }
+
+        function calculateQuote() {
+            var e = parseFloat(document.getElementById('jpyAmount').value),
+                t = document.getElementById('jpyFee').checked;
+            if (!e || e <= 0) { alert('請輸入有效的日元金額'); return; }
+            
+            var n = t ? 250 : 0,
+                a = e + n,
+                c = 0;
+            
+            if (a >= 1 && a < 50000) { c = .056 * a + 35; } 
+            else if (a >= 50000 && a < 100000) { c = .0555 * a; } 
+            else if (a >= 100000) { c = .055 * a; }
+            
+            var o = Math.ceil(c);
+            document.getElementById('hkPrice').innerText = 'HK$ ' + o;
+            
+            var l = "我想委託入金：\n日元金額：¥" + e + "\n銀行手續費：" + (t ? "需要 (+¥250)" : "不需要") + "\n試算報價為：HK$ " + o;
+            document.getElementById('msgContent').value = l;
+            document.getElementById('cpBtn').innerText = "📋 複製訂單訊息";
+            document.getElementById('result').style.display = 'block';
+            
+            setTimeout(function() {
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+            }, 150);
+        }
+
+        function copyMessage() {
+            var e = document.getElementById('msgContent');
+            e.select();
+            e.setSelectionRange(0, 99999);
+            try {
+                navigator.clipboard.writeText(e.value);
+                document.getElementById('cpBtn').innerText = "✅ 已複製訊息！";
+            } catch (t) {
+                document.execCommand('copy');
+                document.getElementById('cpBtn').innerText = "✅ 已複製訊息！";
+            }
+        }
+    </script>
+</body>
+</html>
