@@ -6,24 +6,25 @@
     <title>客戶服務系統</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #f4f6f8;
+            color: #333333;
         }
         .page {
             display: none;
             width: 100%;
             max-width: 450px;
             background: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
             box-sizing: border-box;
+            border: 1px solid #eaeaea;
         }
         .active {
             display: block;
@@ -31,96 +32,136 @@
         h2 {
             text-align: center;
             margin-top: 0;
-            color: #111;
+            margin-bottom: 24px;
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 16px;
+            margin-top: 20px;
         }
+        /* 主商用按鈕 */
         button {
-            padding: 14px;
+            padding: 16px;
             font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background-color: #007bff;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #2c3e50;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(44, 62, 80, 0.15);
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #1a252f;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(44, 62, 80, 0.2);
         }
+        /* 返回按鈕改為質感灰色 */
         .back-btn {
             margin-top: 25px;
-            background-color: #6c757d;
+            background-color: #7f8c8d;
             width: 100%;
+            box-shadow: 0 4px 6px rgba(127, 140, 141, 0.15);
         }
         .back-btn:hover {
-            background-color: #5a6268;
+            background-color: #616a6b;
+            box-shadow: 0 6px 12px rgba(127, 140, 141, 0.2);
         }
-        /* 說明文樣式 */
+        /* 說明文樣式（粉嫩高雅） */
         .info-card {
-            background: #fdf2f8;
-            border-left: 4px solid #db2777;
-            padding: 12px;
-            border-radius: 6px;
+            background: #fff0f5;
+            border-left: 4px solid #d81b60;
+            padding: 14px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 13px;
+            font-size: 13.5px;
             line-height: 1.6;
         }
-        .info-card ul {
-            margin: 5px 0 0 0;
-            padding-left: 18px;
+        .info-card strong {
+            color: #880e4f;
         }
-        /* 例子樣式 */
+        .info-card ul {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+            color: #495057;
+        }
+        /* 例子樣式（商務淡藍灰） */
         .example-box {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 12px;
-            border-radius: 6px;
+            padding: 14px;
+            border-radius: 8px;
             font-size: 13px;
             line-height: 1.6;
             margin-bottom: 20px;
-            color: #334155;
+            color: #475569;
         }
-        /* WhatsApp 按鈕樣式 */
+        .example-box strong {
+            color: #1e293b;
+        }
+        /* 無法成行安排樣式（和諧莫蘭迪綠） */
+        .cancel-box {
+            background: #f0fdfa;
+            border-left: 4px solid #0d9488;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #115e59;
+        }
+        .cancel-box strong {
+            color: #0f766e;
+        }
+        .cancel-box div {
+            margin-bottom: 5px;
+        }
+        .cancel-box div:last-child {
+            margin-bottom: 0;
+        }
+        /* WhatsApp 按鈕（亮麗商務綠） */
         .whatsapp-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background-color: #25D366;
-            color: white;
+            background-color: #25d366;
+            color: #ffffff;
             text-decoration: none;
-            padding: 14px;
+            padding: 15px;
             font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            margin-bottom: 25px;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-bottom: 28px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            transition: all 0.2s ease;
         }
         .whatsapp-btn:hover {
-            background-color: #128C7E;
+            background-color: #1ebd56;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(37, 211, 102, 0.3);
         }
-        /* 網址排版 */
+        /* 網址排版（圓潤灰色塊） */
         .links-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .links-grid a {
             display: block;
-            padding: 10px;
+            padding: 11px;
             background: #f1f5f9;
-            color: #1e293b;
+            color: #334155;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 13px;
             font-weight: 500;
             text-align: center;
@@ -128,9 +169,20 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            transition: all 0.15s ease;
         }
         .links-grid a:hover {
             background: #e2e8f0;
+            color: #0f172a;
+            border-color: #cbd5e1;
+        }
+        h3.section-title {
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -173,23 +225,31 @@
             [(20000+950)*0.057+100] = $1294
         </div>
 
+        <!-- 購票後無法成行的安排 -->
+        <div class="cancel-box">
+            <strong>◎ 購票後無法成行的安排</strong><br>
+            <div>(A) 我地出公司發票比你claim旅遊保險</div>
+            <div>(B) 官方平台原價resell【平台少量手數料】</div>
+            <div>(C) 代掛票通/JAM【有條件，手數料高】</div>
+        </div>
+
         <!-- WhatsApp 聯絡按鈕 -->
         <a href="https://wa.me，我想查詢代購票服務" target="_blank" class="whatsapp-btn">
             💬 whatsapp查詢/落單
         </a>
 
         <!-- 常用購票網站 -->
-        <h3 style="font-size:14px; margin-bottom:10px; text-align:center;">⭐⭐ Live配信, 門票 ⭐⭐</h3>
+        <h3 class="section-title">⭐⭐ Live配信, 門票 ⭐⭐</h3>
         <div class="links-grid">
             <a href="http://ticket.co.jp" target="_blank">🔹 票通 🐮</a>
             <a href="https://ticketjam.jp" target="_blank">🔸 Ticket Jam 🐮</a>
             <a href="http://eplus.jp" target="_blank">🔹 e+</a>
-            <a href="https://t.pia.jp" target="_blank">🔸 チケットぴあ</a>
+            <a href="https://pia.jp" target="_blank">🔸 チケットぴあ</a>
             <a href="http://l-tike.com" target="_blank">🔹 ローチケ</a>
-            <a href="http://www.cnplayguide.com" target="_blank">🔸 CNガイド</a>
-            <a href="https://ticket.line.me" target="_blank">🔹 LINE ticket</a>
-            <a href="https://ticket.yahoo.co.jp" target="_blank">🔸 Y ticket</a>
-            <a href="https://ticket.rakuten.co.jp" target="_blank">🔹 楽天チケット</a>
+            <a href="http://cnplayguide.com" target="_blank">🔸 CNガイド</a>
+            <a href="https://livepocket.jp" target="_blank">🔹 Livepocket</a>
+            <a href="https://tickebo.jp" target="_blank">🔸 Ticketboard</a>
+            <a href="https://rakuten.co.jp" target="_blank">🔹 楽天チケット</a>
             <a href="https://e-ticketbook.com" target="_blank">🔸 Ticketbook</a>
         </div>
 
@@ -199,7 +259,7 @@
     <!-- 3. 商品代購 空白新頁面 -->
     <div id="product-page" class="page">
         <h2>商品代購服務</h2>
-        <p style="text-align:center; color:#666;">內容後補...</p>
+        <p style="text-align:center; color:#666666; font-size:14px;">內容後補...</p>
         <button class="back-btn" onclick="navigateTo('home-page')">返回主選單</button>
     </div>
 
@@ -218,3 +278,4 @@
     </script>
 </body>
 </html>
+
