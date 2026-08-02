@@ -19,14 +19,14 @@
         .privacy-text { background: #f0fdfa; border-left: 4px solid #16a34a; padding: 12px; border-radius: 6px; font-size: 15px; color: #166534; margin-top: 15px; line-height: 1.7; }
         h2 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #2c3e50; font-size: 20px; font-weight: 700; }
         .btn-container { display: flex; flex-direction: column; gap: 16px; margin-bottom: 10px; }
-        /* 霧霾藍對稱漸變主按鈕 (兩邊深、中間最淺 70%) */
+                /* 霧霾藍橫向對稱漸變主按鈕 (無傾斜，中間減淺 40%) */
         button.main-btn { 
             padding: 16px; 
             font-size: 16px; 
             font-weight: 600; 
             color: #fff; 
-            /* 45度斜角：從原色過渡到中間淺70%，再過渡回原色 */
-            background: linear-gradient(45deg, #607d8b 0%, #cfd8dc 50%, #607d8b 100%); 
+            /* 橫向不傾斜漸變：從原色過渡到中間減淺 40%（#a7bbc7），再過渡回原色 */
+            background: linear-gradient(to right, #607d8b 0%, #a7bbc7 50%, #607d8b 100%); 
             border: none; 
             border-radius: 10px; 
             cursor: pointer; 
@@ -35,7 +35,7 @@
         }
         /* 懸停時按鈕外觀微微變暗 */
         button.main-btn:hover { 
-            background: linear-gradient(45deg, #455a64 0%, #b0bec5 50%, #455a64 100%);
+            background: linear-gradient(to right, #455a64 0%, #8ca3af 50%, #455a64 100%);
             transform: translateY(-1px); 
         }
         .back-btn { margin-top: 25px; background-color: #7f8c8d; width: 100%; border: none; padding: 16px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 10px; cursor: pointer; }
