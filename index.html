@@ -61,20 +61,53 @@
         .back-btn:hover {
             background-color: #5a6268;
         }
-        /* Ticket Page Styles */
+        /* 說明文樣式 */
         .info-card {
             background: #fdf2f8;
             border-left: 4px solid #db2777;
             padding: 12px;
             border-radius: 6px;
             margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.6;
         }
         .info-card ul {
             margin: 5px 0 0 0;
-            padding-left: 20px;
+            padding-left: 18px;
         }
+        /* 例子樣式 */
+        .example-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #334155;
+        }
+        /* WhatsApp 按鈕樣式 */
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        /* 網址排版 */
         .links-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -99,40 +132,6 @@
         .links-grid a:hover {
             background: #e2e8f0;
         }
-        .calc-box {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .calc-group {
-            margin-bottom: 12px;
-        }
-        .calc-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #166534;
-        }
-        .calc-group input, .calc-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .result-text {
-            font-size: 16px;
-            font-weight: bold;
-            color: #15803d;
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #bbf7d0;
-        }
     </style>
 </head>
 <body>
@@ -149,40 +148,38 @@
 
     <!-- 2. 代購票 服務頁面 -->
     <div id="ticket-page" class="page">
-        <h2>1️⃣ 門票及Live配信</h2>
+        <h2>1️⃣ 門票及on-line配信</h2>
         
         <!-- 收費說明 -->
         <div class="info-card">
-            <strong>💟 收費 (HKD) = 円 * 0.057 + 服務費【每場計】</strong>
+            <strong>💟 收費(hkd) = 円*0.057+服務費※【每場計】</strong>
             <ul>
-                <li>$65：抽票 / 配信♤</li>
-                <li>$100：直接購票</li>
-                <li>另加 $50：票通同行票 / 必須見面領取的電子飛</li>
-                <li>♤ 代抽落選可免費續抽同場，當選補購票差額</li>
+                <li>※ 服務費: (抽票, 配信♤) $65  / (直接購票) 5000円以下 $65, $100; 5000円以上 $100</li>
+                <li>※ 票通同行票或必須見面領取的電子飛另+$50</li>
+                <li>♤ 抽票落選可免費續抽同場，當選則補票款購票</li>
             </ul>
         </div>
 
-        <!-- 試算小工具 -->
-        <div class="calc-box">
-            <h3 style="margin-top:0; font-size:15px; color:#166534; text-align:center;">🧮 價格快速估算</h3>
-            <div class="calc-group">
-                <label>日元票價 (円)</label>
-                <input type="number" id="yen-input" placeholder="請輸入日元金額" oninput="calculateFee()">
-            </div>
-            <div class="calc-group">
-                <label>服務類別</label>
-                <select id="fee-select" onchange="calculateFee()">
-                    <option value="65">抽票 / 配信 ($65)</option>
-                    <option value="100">直接購票 ($100)</option>
-                    <option value="115">票通同行票/見面電子飛-代抽 ($65+$50)</option>
-                    <option value="150">票通同行票/見面電子飛-直購 ($100+$50)</option>
-                </select>
-            </div>
-            <div class="result-text" id="calc-result">預估費用：HKD $0</div>
+        <!-- 範例說明 -->
+        <div class="example-box">
+            <strong>例: 一場演出2張門票總額20000円, 手數料合計950円</strong><br><br>
+            <strong>Case 1: 抽票 (平台有後付選項)</strong><br>
+            &gt;&gt; 先付代抽$65, 當選後再補票款[(20000+950)*0.057+35] = $1229<br><br>
+            <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>
+            &gt;&gt; 需預付全款, 落選的話扣除$65代抽費用後退回餘額<br>
+            全款: [(20000+950)*0.057+100] = $1294<br>
+            落選退回: $1229 (1294-65)<br><br>
+            <strong>Case 3: 直接購票/搶飛</strong><br>
+            [(20000+950)*0.057+100] = $1294
         </div>
 
+        <!-- WhatsApp 聯絡按鈕 -->
+        <a href="https://wa.me，我想查詢代購票服務" target="_blank" class="whatsapp-btn">
+            💬 whatsapp查詢/落單
+        </a>
+
         <!-- 常用購票網站 -->
-        <h3 style="font-size:15px; margin-bottom:10px;">⭐⭐ Live配信, 門票網站 ⭐⭐</h3>
+        <h3 style="font-size:14px; margin-bottom:10px; text-align:center;">⭐⭐ Live配信, 門票 ⭐⭐</h3>
         <div class="links-grid">
             <a href="http://ticket.co.jp" target="_blank">🔹 票通 🐮</a>
             <a href="https://ticketjam.jp" target="_blank">🔸 Ticket Jam 🐮</a>
@@ -207,7 +204,6 @@
     </div>
 
     <script>
-        // 頁面轉跳控制
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
@@ -215,24 +211,9 @@
             document.getElementById(pageId).classList.add('active');
         }
 
-        // 強效外部轉跳
         function redirectToGoogleScript() {
             var url = "https://google.com";
             window.top.location.href = url;
-        }
-
-        // 報價計算器
-        function calculateFee() {
-            var yen = parseFloat(document.getElementById('yen-input').value) || 0;
-            var serviceFee = parseFloat(document.getElementById('fee-select').value) || 0;
-            
-            if (yen <= 0) {
-                document.getElementById('calc-result').innerText = "預估費用：HKD $0";
-                return;
-            }
-            
-            var total = (yen * 0.057) + serviceFee;
-            document.getElementById('calc-result').innerText = "預估費用：HKD $" + Math.ceil(total);
         }
     </script>
 </body>
