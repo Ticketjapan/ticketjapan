@@ -25,21 +25,20 @@
         .back-btn:hover { background-color: #616a6b; }
         
         .info-card { background: #fff0f5; border-left: 4px solid #d81b60; padding: 14px; border-radius: 8px; margin-bottom: 20px; font-size: 13.5px; line-height: 1.6; }
-        /* 收費標題底色加深20% */
         .fee-title-bg { background-color: #f4b2cf; color: #5c0632; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 8px; font-weight: bold; }
         .info-card ul { margin: 8px 0 0 0; padding-left: 18px; color: #495057; }
         
         .example-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; margin-bottom: 20px; color: #475569; }
-        .example-highlight { background-color: #2c3e50; color: #ffffff; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 12px; font-weight: bold; }
+        /* 例子標題底色修改為 #8E8E8E */
+        .example-highlight { background-color: #8E8E8E; color: #ffffff; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 12px; font-weight: bold; }
         
         .cancel-box { background: #f0fdfa; border-left: 4px solid #0d9488; padding: 14px; border-radius: 8px; margin-bottom: 24px; font-size: 13px; line-height: 1.6; color: #115e59; }
-        /* 無法成行標題底色加深20% */
         .cancel-title-bg { background-color: #b2ede2; color: #073b37; padding: 6px 10px; border-radius: 6px; display: block; margin-bottom: 8px; font-weight: bold; }
         .cancel-box div { margin-bottom: 5px; }
         
-        /* 替換為圖片中的標準官方綠色 (#25D366) */
+        /* 修正為亮綠色官方標準色 #25D366 */
         .whatsapp-btn { display: flex; align-items: center; justify-content: center; background-color: #25D366; color: #fff; text-decoration: none; padding: 15px; font-size: 16px; font-weight: 600; border-radius: 10px; margin-bottom: 28px; box-shadow: 0 4px 10px rgba(37,211,102,0.2); transition: all 0.2s; }
-        .whatsapp-btn:hover { background-color: #128C7E; transform: translateY(-1px); }
+        .whatsapp-btn:hover { background-color: #1ebd56; transform: translateY(-1px); }
         
         .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .links-grid a { display: block; padding: 11px; background: #f1f5f9; color: #334155; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 500; text-align: center; border: 1px solid #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -47,7 +46,7 @@
         .section-title { font-size: 14px; margin-bottom: 12px; text-align: center; color: #64748b; font-weight: 600; }
     </style>
 </head>
-<body oncontextmenu="return false;"> <!-- 封鎖滑鼠右鍵功能 -->
+<body oncontextmenu="return false;">
 
     <!-- 1. 首頁 -->
     <div id="home-page" class="page active">
@@ -74,6 +73,7 @@
         </div>
         
         <div class="example-box">
+            <!-- 底色已改為 #8E8E8E -->
             <span class="example-highlight">例: 一場演出2張門票總額20000円, 手數料合計950円</span>
             <strong>Case 1: 抽票 (平台有後付選項)</strong><br>&gt;&gt; 先付代抽$65, 當選後再補票款[(20000+950)*0.057+35] = $1229<br><br>
             <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>&gt;&gt; 需預付全款, 落選的話扣除$65代抽費用後退回餘額<br>全款: [(20000+950)*0.057+100] = $1294<br>落選退回: $1229 (1294-65)<br><br>
@@ -88,7 +88,7 @@
         </div>
         
         <a href="https://wa.me，我想查詢代購票服務" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
-        <h3 class="section-title">⭐⭐ Live配信, 門票 ⭐條</h3>
+        <h3 class="section-title">⭐⭐ Live配信, 門票 ⭐⭐</h3>
         <div class="links-grid">
             <a href="http://ticket.co.jp" target="_blank">🔹 票通 🐮</a>
             <a href="https://ticketjam.jp" target="_blank">🔸 Ticket Jam 🐮</a>
