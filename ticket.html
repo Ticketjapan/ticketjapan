@@ -54,6 +54,112 @@
             <strong>Case 1: 抽票 (平台有後付選項)</strong><br>&gt;&gt; 先付代抽$65, 當選後再補票款[(20000+950)*0.057+35] = $1229<br><br>
             <strong>Case 2: 抽票 (抽中馬上扣款)</strong><br>&gt;&gt; 需預付全款, 落選的話扣除$65代抽費用後退回餘額<br>全款: [(20000+950)*0.057+100] = $1294<br>落選退回: $1229 (1294-65)<br><br>
             <strong>Case 3: 直接購票/搶飛</strong><br>[(20000+950)*0.057+100] = $1294
+                <!-- 門票試算功能區塊開始 -->
+        <div style="margin-bottom: 20px; text-align: left;">
+            <!-- 初始顯示的試算連結 -->
+            <span id="init-calc-trigger" onclick="showCalcNotice()" style="text-decoration: underline; font-weight: bold; color: #a21caf; cursor: pointer; font-size: 14.5px;">【試算】</span>
+            
+            <!-- 點擊後出現的免責聲明提示 -->
+            <div id="calc-notice-box" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 13.5px; line-height: 1.6; color: #b45309;">
+                門票有規限，並不能由買家自行配搭選項，報價以每場計算，試算金額只供參考，需以報價為準 
+                <span onclick="unlockCalcForm()" style="text-decoration: underline; font-weight: bold; color: #b45309; cursor: pointer; margin-left: 5px;">【確認】</span>
+            </div>
+
+            <!-- 點擊確認後才解鎖的試算表格 -->
+            <div id="calc-form-box" style="display: none; background: #f8fafc; border: 1px solid #cbd5e1; padding: 16px; border-radius: 12px; margin-top: 10px; box-sizing: border-box;">
+                <h3 style="margin-top:0; font-size:14.5px; color:#334155; text-align:center; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">🧮 門票費用快速估算</h3>
+                
+                <!-- 對照 Excel 的 A1-E2 輸入排版 -->
+                <div style="display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 8px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display:block; font-size:11px; color:#64748b; margin-bottom:4px; font-weight:bold;">票價*張數 (A2)</label>
+                        <input type="number" id="calc-a2" placeholder="円" oninput="runTicketCalculation()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; font-size:13.5px;">
+                    </div>
+                    <div style="font-size: 16px; font-weight: bold; color: #64748b; padding-top: 15px;">+</div>
+                    <div>
+                        <label style="display:block; font-size:11px; color:#64748b; margin-bottom:4px; font-weight:bold;">手數料合計 (D2)</label>
+                        <input type="number" id="calc-d2" placeholder="円" oninput="runTicketCalculation()" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; font-size:13.5px;">
+                    </div>
+                    <div style="font-size: 14px; font-weight: bold; color: #64748b; padding-top: 15px;">円</div>
+                </div>
+
+                <!-- 4個加選項目（對照 Excel 4~7行） -->
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #334155;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="chk-hotel" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 郵送酒店 (+430円)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="chk-ems" onchange="runTicketCalculation()" style="width:auto; margin:0;"> EMS (+1900円)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="chk-ship" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 夾貨到港 (+$13)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="chk-meet" onchange="runTicketCalculation()" style="width:auto; margin:0;"> 票通同行/見面取電子飛 (+$50)
+                    </label>
+                </div>
+
+                <!-- 試算結果輸出框 -->
+                <div id="calc-ticket-result" style="background:#fff; border:1px dashed #cbd5e1; padding:12px; border-radius:8px; margin-top:15px; text-align:center; font-weight:bold; font-size:15px; color:#334155;">
+                    請輸入金額進行試算
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 顯示免責提示
+            function showCalcNotice() {
+                document.getElementById('init-calc-trigger').style.display = 'none';
+                document.getElementById('calc-notice-box').style.display = 'block';
+            }
+
+            // 確認後解鎖表單
+            function unlockCalcForm() {
+                document.getElementById('calc-notice-box').style.display = 'none';
+                document.getElementById('calc-form-box').style.display = 'block';
+            }
+
+            // 門票試算核心公式邏輯
+            function runTicketCalculation() {
+                var a2 = parseFloat(document.getElementById('calc-a2').value) || 0;
+                var d2 = parseFloat(document.getElementById('calc-d2').value) || 0;
+                var resBox = document.getElementById('calc-ticket-result');
+
+                // 若未輸入基本金額則不執行計算
+                if (a2 <= 0 && d2 <= 0) {
+                    resBox.innerHTML = "請輸入金額進行試算";
+                    resBox.style.color = "#334155";
+                    return;
+                }
+
+                var baseJpyTotal = a2 + d2;
+                
+                // 1. 級距判斷公式：少於 6000 加 $65，大於等於 6000 加 $100
+                var serviceFeeHk = (baseJpyTotal < 6000) ? 65 : 100;
+                
+                // 基底港幣金額 = (A2+D2)*0.057 + 服務費
+                var currentHkTotal = (baseJpyTotal * 0.057) + serviceFeeHk;
+
+                // 2. 累加外加勾選項目的金額
+                if (document.getElementById('chk-hotel').checked) {
+                    currentHkTotal += (430 * 0.057);
+                }
+                if (document.getElementById('chk-ems').checked) {
+                    currentHkTotal += (1900 * 0.057);
+                }
+                if (document.getElementById('chk-ship').checked) {
+                    currentHkTotal += 13;
+                }
+                if (document.getElementById('chk-meet').checked) {
+                    currentHkTotal += 50;
+                }
+
+                // 3. 無條件進位輸出港幣
+                var finalHkPrice = Math.ceil(currentHkTotal);
+                resBox.innerHTML = `預估費用：<span style="font-size: 18px; color: #dc2626;">HKD $${finalHkPrice}</span>`;
+            }
+        </script>
+        <!-- 門票試算功能區塊結束 -->
         </div>
         <div class="cancel-box">
             <span class="cancel-title-bg">◎ 購票後無法成行的安排</span>
