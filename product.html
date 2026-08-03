@@ -361,12 +361,15 @@
                 <span>Rate 0.056</span>
             </div>
             
-            <div class="prod-grid-row" style="margin-bottom: 5px; border-bottom: 1px solid #eaeaea; padding-bottom: 4px;">
-                <div></div>
+        <div class="prod-grid-row" style="margin-bottom: 5px; border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">
+            <div></div>
                 <div style="font-size:12px; font-weight:bold; text-align:center; color:#64748b;">商品 (円)</div>
                 <div style="font-size:12px; font-weight:bold; text-align:center; color:#64748b;">日本送料 (円)</div>
+                <div style="font-size:12px; font-weight:bold; text-align:center; color:#1e3a8a;">品檢</div>
                 <div style="font-size:16px; font-weight:bold; text-align:right; color:#64748b;">港幣</div>
-            </div>
+        </div>
+
+
 
             <!-- 1~10 列動態輸入行容器 -->
             <div id="calc-rows-container"></div>
@@ -413,12 +416,15 @@
                 for (var i = 1; i <= 10; i++) {
                     // 7-10列在介面上加上小標示提示會外加 $10
                     var extraText = (i >= 7) ? ' <span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
-                    html += '<div class="prod-grid-row">' +
-                        '<label>' + i + extraText + '</label>' +
-                        '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                        '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                        '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
-                        '</div>';
+                            html += '<div class="prod-grid-row">' +
+            '<label>' + i + extratext + '</label>' +
+            '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()" style="width:18px; height:18px; margin:0 auto; display:block;"></div>' +
+            '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
+            '</div>';
+
+
                 }
                 container.innerHTML = html;
             }
@@ -433,16 +439,22 @@
                     var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
                     var rowJpy = price + ship;
                     
-                    var rowHkd = 0;
-                    if (rowJpy > 0) {
-                        if (i <= 6) {
-                            // 1-6列公式：(Q5+Q6+...)
-                            rowHkd = rowJpy * rate;
-                        } else {
-                            // 7-10列公式：((Q11+10)+...) 每列額外加 10 元港幣
-                            rowHkd = (rowJpy * rate) + 10;
-                        }
-                    }
+                            var rowHkd = 0;
+        if (rowJpy > 0) {
+            if (i <= 6) {
+                // 1-6列公式
+                rowHkd = rowJpy * rate;
+            } else {
+                // 7-10列公式：每列額外加 10 元港幣
+                rowHkd = (rowJpy * rate) + 10;
+            }
+            
+            // ─── 插入品檢費計算邏輯 ───
+            var checkEl = document.getElementById('item-check-' + i);
+            if (checkEl && checkEl.checked) {
+                rowHkd += (300 * 0.057); // 剔左加 (300 * 0.057)
+            }
+        }
                     
                     document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
                     grandTotalHkd += rowHkd;
