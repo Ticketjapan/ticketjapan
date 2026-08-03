@@ -413,17 +413,18 @@
                 if(container.children.length > 0) return;
                 
                 var html = '';
-                for (var i = 1; i <= 10; i++) {
-                    // 7-10列在介面上加上小標示提示會外加 $10
-                    var extraText = (i >= 7) ? ' <span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
+    for (var i = 1; i <= 10; i++) {
+        // 7-10列在介面上加上小標示提示會外加 $10
+        var extraText = (i > 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
                 html += '<div class="prod-grid-row">' +
-            '<label>' + i + extratext + '</label>' +
-            '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-            '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-            '<div><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
-            '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
-            '</div>';
-
+        '<label>' + i + extraText + '</label>' +
+        '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+        '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+        '<div><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
+        '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
+        '</div>';
+    }
+    }
                 }
                 container.innerHTML = html;
             }
