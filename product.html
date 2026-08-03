@@ -412,13 +412,14 @@
     if (container.children.length > 0) return;
 
     var html = '';
-    for (var i = 1; i <= 10; i++) {
-        var extraText = (i > 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
+        for (var i = 1; i <= 10; i++) {
+        // 修正判定條件，讓第 7 列也顯示小提示
+        var extraText = (i >= 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
         html += '<div class="prod-grid-row">' +
                 '<label>' + i + extraText + '</label>' +
                 '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
                 '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                '<div><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
+                '<div style="display:flex;justify-content:center;align-items:center;"><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
                 '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
                 '</div>';
     }
