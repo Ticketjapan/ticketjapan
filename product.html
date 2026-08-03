@@ -261,14 +261,13 @@
     .prod-grid-row {
   display: grid;
   /* 調整比例：序號、商品、送料、品檢、港幣 */
-  grid-template-columns: minmax(65px, 1.5fr) 3fr 4fr 1.2fr 2.5fr;
+  grid-template-columns: 1.8fr 3.2fr 3.2fr 1.2fr 2.6fr;
   gap: 8px;
   align-items: center;
 }
 
-.prod-grid-row label { font-size: 13px; color: #475569; font-weight: bold; text-align: center; white-space: nowrap; }
-
-        .prod-grid-row input { width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 13px; text-align: center; }
+        .prod-grid-row label { font-size: 13px; color: #475569; font-weight: bold; text-align: center; white-space: nowrap; }
+        .prod-grid-row input { width: 100%; max-width: 65px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 13px; text-align: center; }
         .hk-subtotal { font-size: 16px; font-weight: bold; color: #334155; text-align: right; }
         .fee-amount-text {font-size: 16px; /* 修改為指定的大字體 SIZE 16 */font-weight: bold;
         }
