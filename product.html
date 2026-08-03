@@ -268,6 +268,9 @@
         .prod-grid-row label { font-size: 13px; color: #475569; font-weight: bold; text-align: center; }
         .prod-grid-row input { width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 13px; text-align: center; }
         .hk-subtotal { font-size: 16px; font-weight: bold; color: #334155; text-align: right; }
+        .fee-amount-text {font-size: 16px; /* 修改為指定的大字體 SIZE 16 */font-weight: bold;
+        }
+
         
         .fixed-calc-row {
             display: flex;
@@ -368,11 +371,11 @@
             <!-- 1~10 列動態輸入行容器 -->
             <div id="calc-rows-container"></div>
 
-            <!-- 代購服務費固定 $80 (註解換成 #0000C6 色) -->
+            <!-- 代購服務費固定 $80 -->
             <div class="fixed-calc-row">
                 <span style="color:#1e3a8a;">代購服務費</span>
                 <span style="color:#0000C6; font-weight:normal; font-size:12px;">($80/6 links, 可同單結帳計1 link)</span>
-                <span>$80</span>
+                <span class="fee-amount-text">$80</span> <!-- 加上 fee-amount-text 樣式 -->
             </div>
 
             <!-- JP~HK運費 (支援小數點後1位) -->
