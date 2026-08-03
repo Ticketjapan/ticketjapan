@@ -159,30 +159,50 @@
         .back-btn:hover { 
             background-color: #616a6b; 
         }
+        /* 摺疊大項標題樣式 */
+        .category-trigger {
+            display: block;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .category-trigger:hover {
+            background: #e2e8f0;
+        }
+        /* 細項按鈕網格 (預設隱藏) */
         .links-grid { 
-            display: grid; 
+            display: none; /* 預設不顯示，點擊才展開 */
             grid-template-columns: 1fr 1fr; 
             gap: 10px; 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
+            padding: 5px;
         }
+         /* 允許自動換行且不截斷的細項按鈕 */
         .links-grid a { 
-            display: flex; /* 改為彈性佈局 */
-            align-items: center; /* 垂直居中 */
-            justify-content: center; /* 水平居中 */
-            min-height: 44px; /* 設定最小高度，確保換行時按鈕高度一致 */
-            padding: 8px 6px; /* 微調內邊距 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 8px 6px;
             background: #f1f5f9; 
             color: #334155; 
             text-decoration: none; 
             border-radius: 8px; 
-            font-size: 12.5px; /* 稍微縮小字體，利於手機排版 */
+            font-size: 12.5px; 
             font-weight: 500; 
             text-align: center; 
             border: 1px solid #e2e8f0; 
-            
-            /* 🔴 關鍵修正：移除原本的省略號，改為允許自動換行 */
-            white-space: normal; /* 允許文字自動換行 */
-            word-break: break-word; /* 遇到長單字自動折行 */
+            white-space: normal; 
+            word-break: break-word;
+            transition: all 0.15s;
         }
         .links-grid a:hover { 
             background: #e2e8f0; 
@@ -267,25 +287,99 @@
         <!-- WhatsApp 聯絡短網址按鈕 -->
         <a href="https://wa.me/85291626197" target="_blank" class="whatsapp-btn">💬 whatsapp查詢/落單</a>
 
-        <h3 class="section-title">⭐⭐ 熱門購物網站 ⭐⭐</h3>
+                <h3 class="section-title">⭐⭐ 購物網站推介 ⭐⭐</h3>
         
-        <!-- 14個購物網站排版 -->
-        <div class="links-grid">
-            <a href="https://auctions.yahoo.co.jp/" target="_blank">🔹 YAHOO日拍</a>
-            <a href="https://www.mercari.com/jp/" target="_blank">🔸 Mercari</a>
-            <a href="https://fril.jp" target="_blank">🔹 FRIL</a>
-            <a href="https://paypayfleamarket.yahoo.co.jp/" target="_blank">🔸 Paypay Fleamarket</a>
+        <!-- 1. 百貨 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-dept')">．百貨．</div>
+        <div id="cat-dept" class="links-grid">
+            <a href="https://yahoo.co.jp" target="_blank">🔹 YAHOO Shopping</a>
+            <a href="https://rakuten.co.jp" target="_blank">🔸 日本樂天</a>
+            <a href="https://amazon.co.jp" target="_blank">🔹 日本Amazon</a>
+            <a href="https://yodobashi.com" target="_blank">🔸 YODOBASHI</a>
+        </div>
+
+        <!-- 2. 個人/二手 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-used')">．個人/二手．</div>
+        <div id="cat-used" class="links-grid">
+            <a href="https://yahoo.co.jp" target="_blank">🔹 YAHOO拍賣</a>
+            <a href="https://mercari.com" target="_blank">🔸 Mercari</a>
+            <a href="https://fril.jp" target="_blank">🔹 Fril</a>
+            <a href="https://yahoo.co.jp" target="_blank">🔸 Paypay fleamarket</a>
+        </div>
+
+        <!-- 3. CD/映像 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-media')">．CD/映像．</div>
+        <div id="cat-media" class="links-grid">
+            <a href="https://hmv.co.jp" target="_blank">🔹 HMV</a>
+            <a href="https://tower.jp" target="_blank">🔸 Tower Record</a>
+            <a href="https://universal-music.co.jp" target="_blank">🔹 Universal Music Store</a>
+            <a href="https://sonymusicshop.jp" target="_blank">🔸 Sony music shop</a>
+            <a href="https://tsutaya.co.jp" target="_blank">🔹 Tsutaya online</a>
+            <a href="https://omni7.jp" target="_blank">🔸 7net通販</a>
+            <a href="https://animate-onlineshop.jp" target="_blank">🔹 Animate</a>
+            <a href="https://gamers.co.jp" target="_blank">🔸 Gamer</a>
+            <a href="https://colorfulpalette.jp" target="_blank">🔹 Colorful Palette</a>
+        </div>
+
+        <!-- 4. 動漫/玩具 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-anime')">．動漫/玩具．</div>
+        <div id="cat-anime" class="links-grid">
+            <a href="https://suruga-ya.jp" target="_blank">🔹 駿河屋</a>
+            <a href="https://toranoana.jp" target="_blank">🔸 虎の穴</a>
+            <a href="https://p-bandai.jp" target="_blank">🔹 Premium Bandai</a>
+        </div>
+
+        <!-- 5. 偶像商品 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-idol')">．偶像商品．</div>
+        <div id="cat-idol" class="links-grid">
             <a href="https://famikura-store.jp" target="_blank">🔹 FAMILY CLUB STORE</a>
-            <a href="https://suruga-ya.jp" target="_blank">🔸 駿河屋</a>
-            <a href="http://7net.omni7.jp/" target="_blank">🔹 711通販</a>
-            <a href="https://p-bandai.jp" target="_blank">🔸 PREMIUM BANDAI</a>
-            <a href="https://rakuten.co.jp" target="_blank">🔹 日本樂天</a>
-            <a href="https://amazon.co.jp" target="_blank">🔸 日本Amazon</a>
+            <a href="https://mu-mo.net" target="_blank">🔸 MU-MO SHOP</a>
+            <a href="https://weverse.io" target="_blank">🔹 Weverse shop</a>
+            <a href="https://plusmember.jp" target="_blank">🔸 Plusmember store</a>
+        </div>
+
+        <!-- 6. 服裝配飾 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-fashion')">．服裝配飾．</div>
+        <div id="cat-fashion" class="links-grid">
             <a href="https://zozo.jp" target="_blank">🔹 ZOZOTOWN</a>
             <a href="https://grail.bz" target="_blank">🔸 GRL</a>
-            <a href="https://shop.mu-mo.net/" target="_blank">🔹 MU-MO SHOP</a>
-            <a href="https://toranoana.jp" target="_blank">🔸 虎穴</a>
+            <a href="https://abc-mart.net" target="_blank">🔹 ABCmart</a>
+            <a href="https://uniqlo.com" target="_blank">🔸 UNIQLO</a>
+            <a href="https://gu-global.com" target="_blank">🔹 GU</a>
+            <a href="https://rakuten.co.jp" target="_blank">🔸 RAKUTEN FASHION</a>
         </div>
+
+        <!-- 7. Chiikawa/Sanrio/Disney -->
+        <div class="category-trigger" onclick="toggleCategory('cat-character')">．Chiikawa/Sanrio/Disney．</div>
+        <div id="cat-character" class="links-grid">
+            <a href="https://chiikawa-info.jp" target="_blank">🔹 ちいかわ本舗</a>
+            <a href="https://chiikawamarket.jp" target="_blank">🔸 ちいかわマーケット</a>
+            <a href="https://sanrio.co.jp" target="_blank">🔹 Sanrio shop</a>
+            <a href="https://disney.co.jp" target="_blank">🔸 Disneystore</a>
+        </div>
+
+        <!-- 8. 一番賞 -->
+        <div class="category-trigger" onclick="toggleCategory('cat-kuji')">．一番賞．</div>
+        <div id="cat-kuji" class="links-grid">
+            <a href="https://1kuji.com" target="_blank">🔹 一番賞ONLINE</a>
+            <a href="https://1kuji.com" target="_blank">🔸 一番賞倶楽部</a>
+            <a href="https://segaplaza.jp" target="_blank">🔹 SEGA一番賞</a>
+            <a href="https://bandainamco-am.co.jp" target="_blank">🔸 BANDAI NAMCO</a>
+            <a href="https://kujibikido.com" target="_blank">🔹 くじ引き堂</a>
+            <a href="https://sanrio.co.jp" target="_blank">🔸 Sanrio快樂賞</a>
+        </div>
+
+        <!-- 動態摺疊控制腳本 -->
+        <script>
+            function toggleCategory(catId) {
+                var target = document.getElementById(catId);
+                if (target.style.display === "grid") {
+                    target.style.display = "none";
+                } else {
+                    target.style.display = "grid";
+                }
+            }
+        </script>
 
         <p style="font-size:13px; color:#64748b; text-align:center; line-height:1.5; margin-top:0; margin-bottom:20px; padding:0 5px;">
             <strong>🍀 其他不收海外信用咭，不發送集運倉及代金引換的網站也可以代購</strong>
