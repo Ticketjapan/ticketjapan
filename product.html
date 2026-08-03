@@ -258,16 +258,48 @@
             margin-bottom: 12px;
         }
         /* 欄位表格排版  */
-    .prod-grid-row {
+/* 1. 欄位表格排版（第 261-269 行區塊修正） */
+.prod-grid-row {
   display: grid;
-  /* 調整比例：序號、商品、送料、品檢、港幣 */
-  grid-template-columns: 2fr 4fr 3fr 1.4fr 2.6fr;
-  gap: 8px;
+  /* 
+     嚴格鎖定寬度：
+     序號/提示: 68px 固定
+     商品輸入: 1.1fr 分配
+     送料輸入: 1.1fr 分配
+     品檢勾選: 50px 固定 (縮小填補空隙)
+     港幣小計: 60px 固定 (靠右)
+  */
+  grid-template-columns: 68px 1.1fr 1.1fr 50px 60px;
+  gap: 6px;
   align-items: center;
 }
 
-        .prod-grid-row label { font-size: 13px; color: #475569; font-weight: bold; text-align: center; white-space: nowrap; }
-        .prod-grid-row input { width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 13px; text-align: center; }
+/* 序號文字樣式 */
+.prod-grid-row label { 
+  font-size: 13px; 
+  color: #475569; 
+  font-weight: bold; 
+  text-align: center; 
+  white-space: nowrap; 
+}
+
+/* 2. 徹底鎖定輸入框，防止輸入時撐開（第 270-271 行區塊修正） */
+.prod-grid-row div {
+  width: 100%;
+  min-width: 0; /* 👈 關鍵：防止 div 被內部 input 的預設寬度撐大 */
+}
+
+.prod-grid-row input { 
+  width: 100%; 
+  max-width: 100%; /* 讓輸入框完美塞滿分配好的 grid 容器 */
+  padding: 6px 4px; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 6px; 
+  box-sizing: border-box; 
+  font-size: 13px; 
+  text-align: center; 
+}
+
         .hk-subtotal { font-size: 16px; font-weight: bold; color: #334155; text-align: right; }
         .fee-amount-text {font-size: 16px; /* 修改為指定的大字體 SIZE 16 */font-weight: bold;
         }
