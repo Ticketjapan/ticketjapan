@@ -422,11 +422,11 @@
                 container.innerHTML = html;
             }
 
-            function calculateProductTotal() {
+                function calculateProductTotal() {
                 var grandTotalHkd = 0;
                 var rate = 0.056;
 
-                // 核心分層級算邏輯
+                // 1. 循環換算 1~10 商品與送料（保留小數後1位）
                 for (var i = 1; i <= 10; i++) {
                     var price = parseFloat(document.getElementById('item-price-' + i).value) || 0;
                     var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
@@ -435,17 +435,35 @@
                     var rowHkd = 0;
                     if (rowJpy > 0) {
                         if (i <= 6) {
-                            // 1-6列公式：(Q5+Q6+...)
                             rowHkd = rowJpy * rate;
                         } else {
-                            // 7-10列公式：((Q11+10)+...) 每列額外加 10 元港幣
                             rowHkd = (rowJpy * rate) + 10;
                         }
                     }
                     
-                    document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + Math.ceil(rowHkd) : '$0';
+                    // 顯示小數點後 1 位
+                    document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0.0';
                     grandTotalHkd += rowHkd;
                 }
+
+                // 2. 處理運費（保留小數後1位）
+                var weightInput = document.getElementById('calc-weight');
+                var weight = parseFloat(weightInput.value);
+                
+                if (weightInput.value === "" || isNaN(weight) || weight < 0) {
+                    weightInput.style.borderColor = "#dc2626";
+                    weight = 0;
+                } else {
+                    weightInput.style.borderColor = "#cbd5e1";
+                }
+                
+                var shippingFeeHkd = weight * 25;
+
+                // 3. 總額加總公式並無條件進位
+                var finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+                document.getElementById('prod-final-hkd').innerText = '$' + Math.ceil(finalTotal);
+            }
+
 
                 // 運費小數點不進位處理
                 var weightInput = document.getElementById('calc-weight');
