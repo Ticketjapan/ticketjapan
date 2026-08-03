@@ -371,14 +371,25 @@
 
         <!-- 動態摺疊控制腳本 -->
         <script>
-            function toggleCategory(catId) {
-                var target = document.getElementById(catId);
-                if (target.style.display === "grid") {
-                    target.style.display = "none";
-                } else {
-                    target.style.display = "grid";
-                }
+        // 互斥型摺疊控制：一次只能開啟一個大項
+        function toggleCategory(catId) {
+            var target = document.getElementById(catId);
+            
+            // 1. 先檢查當前點擊的是否已經是打開狀態
+            var isAlreadyOpen = (target.style.display === "grid");
+            
+            // 2. 找到頁面上所有大項的網格，強行全部隱藏收起
+            var allGrids = document.querySelectorAll('.links-grid');
+            allGrids.forEach(function(grid) {
+                grid.style.display = "none";
+            });
+            
+            // 3. 如果剛才不是打開的，現在就將它單獨展開
+            if (!isAlreadyOpen) {
+                target.style.display = "grid";
             }
+        }
+
         </script>
 
         <p style="font-size:13px; color:#64748b; text-align:center; line-height:1.5; margin-top:0; margin-bottom:20px; padding:0 5px;">
