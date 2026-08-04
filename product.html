@@ -536,7 +536,11 @@ function calculateProductTotal() {
     }
     
     var shippingFeeHkd = weight * 25;
-    var finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+        // 如果商品金額與運費加起來是 0，代表客人完全未輸入，報價直接顯示 $0
+    var finalTotal = 0;
+    if (grandTotalHkd > 0 || shippingFeeHkd > 0) {
+        finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+    }
     document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
 }
 </script>
