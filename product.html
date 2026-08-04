@@ -441,15 +441,21 @@ input[type=number] {
             </div>
 
             <p style="font-size:12px; color:#64748b; text-align:center; margin:13px 0 0 0; font-weight:500;">試算結果供參考，請以報價為準</p>
-        </div>
-
+            <!-- 新增：表單底部「收起」文字按鈕 -->
+<div onclick="hideProductCalculator()" style="font-size: 14px; color: #7f8c8d; text-align: center; margin-top: 15px; cursor: pointer; text-decoration: underline; font-weight: bold;">
+收起
+</div>
+</div>
         <script>
             function showProductCalculator() {
                 document.getElementById('prod-calc-trigger').style.display = 'none';
                 document.getElementById('product-calc-box').style.display = 'block';
                 setupCalculatorRows();
             }
-
+function hideProductCalculator() {
+    document.getElementById('product-calc-box').style.display = 'none';
+    document.getElementById('prod-calc-trigger').style.display = 'block';
+}
            function setupCalculatorRows() {
     var container = document.getElementById('calc-rows-container');
     if (container.children.length > 0) return;
@@ -515,10 +521,14 @@ input[type=number] {
                 // 磅數接受小數點後1位，直接乘以 25 不單獨做 Math.ceil 處理
                 var shippingFeeHkd = weight * 25;
 
-                // 總額加總公式並無條件進位
-                var finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
-                document.getElementById('prod-final-hkd').innerText = '$' + Math.ceil(finalTotal);
-            }
+            // 總額加總公式並四捨五入進位
+                var finalTotal = grandTotalHkd + 80+ shippingFeeHkd;
+                document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
+
+    }
+}
+</script>
+
         </script>
         <!-- 商品代購費用試算區塊結束 -->
         
