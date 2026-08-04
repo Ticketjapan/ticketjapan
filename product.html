@@ -385,9 +385,9 @@ input[type=number] {
     <i>eg: https://yyy~ 最高bid 6500yen</i><br>
     2️⃣ 報價後預付全款<br>
     3️⃣ 結標前本站下bid，若max bid被超過，會詢問買定是否追bid<br>
-    4️⃣🅰️結標及確定送料後截圖，安排補款或退差價<br>
-    4️⃣🅱️沒bid到全數退款，亦可48小時內改bid或改購其他商品<br>
-    <strong>○ 可代發問/查詢能否同梱，但日拍賣家一般不設議價，已有人BID緊既商品不設提前結標</strong>
+    4️⃣🅰️ 結標及確定送料後截圖，安排補款或退差價<br>
+    4️⃣🅱️ 沒bid到全數退款，亦可48小時內改bid或改購其他商品<br>
+    <strong>◎ 可代發問/查詢能否同梱，但日拍賣家一般不設議價，已有人BID緊既商品不設提前結標</strong>
   </div>
 </details>
 
@@ -456,14 +456,16 @@ input[type=number] {
 </div>
         <script>
             function showProductCalculator() {
-                document.getElementById('prod-calc-trigger').style.display = 'none';
-                document.getElementById('product-calc-box').style.display = 'block';
-                setupCalculatorRows();
-            }
+    document.getElementById('prod-calc-trigger').style.display = 'none';
+    document.getElementById('product-calc-box').style.display = 'block';
+    setupCalculatorRows();
+}
+
 function hideProductCalculator() {
     document.getElementById('product-calc-box').style.display = 'none';
     document.getElementById('prod-calc-trigger').style.display = 'block';
 }
+
 function setupCalculatorRows() {
     var container = document.getElementById('calc-rows-container');
     if (container.children.length > 0) return;
@@ -481,60 +483,61 @@ function setupCalculatorRows() {
     container.innerHTML = html;
 }
 
-            function calculateProductTotal() {
-                var grandTotalHkd = 0;
-                var rate = 0.056;
-
-                // 核心分層級算邏輯
-            for (var i = 1; i <= 10; i++) {
-                    var price = parseFloat(document.getElementById('item-price-' + i).value) || 0;
-                    var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
-                    var rowJpy = price + ship;
-                    
-                            var rowHkd = 0;
+function calculateProductTotal() {
+    var grandTotalHkd = 0;
+    var rate = 0.056;
+    
+    for (var i = 1; i <= 10; i++) {
+        var price = parseFloat(document.getElementById('item-price-' + i).value) || 0;
+        var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
+        var rowJpy = price + ship;
+        var rowHkd = 0;
+        
         if (rowJpy > 0) {
             if (i <= 6) {
-                // 1-6列公式
                 rowHkd = rowJpy * rate;
             } else {
-                // 7-10列公式：每列額外加 10 元港幣
                 rowHkd = (rowJpy * rate) + 10;
             }
             
-            // ─── 插入品檢費計算邏輯 ───
             var checkEl = document.getElementById('item-check-' + i);
             if (checkEl && checkEl.checked) {
-                rowHkd += (300 * 0.057); // 剔左加 (300 * 0.057)
+                rowHkd += (300 * 0.056);
             }
         }
-                    
-                    document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
-                    grandTotalHkd += rowHkd;
-                }
-
-                // 運費小數點不進位處理
-                var weightInput = document.getElementById('calc-weight');
-                var weight = parseFloat(weightInput.value);
-                
-                if (weightInput.value === "" || isNaN(weight) || weight < 0) {
-                    weightInput.style.borderColor = "#dc2626";
-                    weight = 0;
-                } else {
-                    weightInput.style.borderColor = "#cbd5e1";
-                }
-                
-                // 磅數接受小數點後1位，直接乘以 25 不單獨做 Math.ceil 處理
-                var shippingFeeHkd = weight * 25;
-
-            // 總額加總公式並四捨五入進位
-                var finalTotal = grandTotalHkd + 80+ shippingFeeHkd;
-                document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
-
+        
+        document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
+        grandTotalHkd += rowHkd;
     }
+    
+    var weightInput = document.getElementById('calc-weight');
+    var weight = parseFloat(weightInput.value);
+    if (weightInput.value === "" || isNaN(weight) || weight < 0) {
+        weightInput.style.borderColor = "#dc2626";
+        weight = 0;
+    } else {
+        weightInput.style.borderColor = "#cbd5e1";
+    }
+    
+    var shippingFeeHkd = weight * 25;
+    var finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+    document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
 }
 </script>
 
-        </script>
+<script>
+function toggleCategory(catId) {
+    var target = document.getElementById(catId);
+    var isAlreadyOpen = (target.style.display === "grid");
+    var allGrids = document.querySelectorAll('.links-grid');
+    allGrids.forEach(function(grid) {
+        grid.style.display = "none";
+    });
+    if (!isAlreadyOpen) {
+        target.style.display = "grid";
+    }
+}
+</script>
         <!-- 商品代購費用試算區塊結束 -->
         
         <!-- WhatsApp 聯絡短網址按鈕 -->
