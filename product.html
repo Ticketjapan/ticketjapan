@@ -456,32 +456,28 @@ function hideProductCalculator() {
     document.getElementById('product-calc-box').style.display = 'none';
     document.getElementById('prod-calc-trigger').style.display = 'block';
 }
-           function setupCalculatorRows() {
-    var container = document.getElementById('calc-rows-container');
-    if (container.children.length > 0) return;
-
-    var html = '';
-        for (var i = 1; i <= 10; i++) {
-        // 修正判定條件，讓第 7 列也顯示小提示
-        var extraText = (i >= 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
-        html += '<div class="prod-grid-row">' +
-                '<label>' + i + extraText + '</label>' +
-                '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                '<div style="display:flex;justify-content:center;align-items:center;"><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
-                '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
-                '</div>';
-    }
-    container.innerHTML = html;
+function setupCalculatorRows() {
+  var container = document.getElementById('calc-rows-container');
+  if (container.children.length > 0) return;
+  var html = '';
+  for (var i = 1; i <= 10; i++) {
+    var extraText = (i >= 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
+    html += '<div class="prod-grid-row">' +
+            '<label>' + i + extraText + '</label>' +
+            '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div style="display: flex; justify-content:center; align-items:center;"><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
+            '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
+            '</div>';
+  }
+  container.innerHTML = html;
 }
-
-       
             function calculateProductTotal() {
                 var grandTotalHkd = 0;
                 var rate = 0.056;
 
                 // 核心分層級算邏輯
-                for (var i = 1; i <= 10; i++) {
+            for (var i = 1; i <= 10; i++) {
                     var price = parseFloat(document.getElementById('item-price-' + i).value) || 0;
                     var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
                     var rowJpy = price + ship;
