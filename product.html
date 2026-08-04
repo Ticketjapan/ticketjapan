@@ -327,6 +327,20 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+       /* 當 details 被點開(open)時，將內部的 + 號圖標自動換成 - 號 */
+details[open] .toggle-icon::before {
+  content: "-";
+}
+details:not([open]) .toggle-icon::before {
+  content: "+";
+}
+details .toggle-icon {
+  font-size: 0 !important; /* 隱藏原本寫死在 HTML 的 + 號，改由上方 CSS 偽元素控制 */
+}
+details .toggle-icon::before {
+  font-size: 14px;
+} 
     </style>
 
 </head>
