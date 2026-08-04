@@ -153,7 +153,7 @@
                     currentHkTotal += 50;
                 }
 
-                var finalHkPrice = Math.ceil(currentHkTotal);
+                var finalHkPrice = Math.round(currentHkTotal);
                 resBox.innerHTML = `預估費用：<span style="font-size: 18px; color: #5B4B00;">HKD $${finalHkPrice}</span>`;
             }
         </script>
