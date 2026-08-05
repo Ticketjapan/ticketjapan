@@ -41,14 +41,17 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- 自動輪播切換的置頂消息公告條 -->
+<!-- 自動輪播切換的置頂消息公告條（瞬間切換版） -->
+<style>
+    html, body { margin: 0 !important; padding: 0 !important; }
+</style>
+
 <a id="top-announcement-bar" href="https://www.instagram.com/stories/highlights/17954933831665339/" target="_blank" style="display: block; width: 100%; background-color: #AE8F00; color: #ffffff; text-align: center; padding: 10px 0; font-size: 14px; text-decoration: none; font-family: sans-serif; letter-spacing: 1px; margin-bottom: 0px; opacity: 1;">
  去我地Story睇下黎緊有咩活動同演出 🐾 
 </a>
 
 <script>
 (function() {
-    // 💡 在這裡修改或增加你的最新消息主題、網址與背景顏色
     var newsList = [
         {
             text: "YOASOBI STADIUM TOUR 2026-2027 ⚡",
@@ -71,28 +74,18 @@
     var bar = document.getElementById('top-announcement-bar');
 
     if (bar && newsList.length > 1) {
-        // 設定每 4000 毫秒（4秒）自動切換一次
+        // 每 4 秒鐘（4000毫秒）直接、乾脆地更換內容
         setInterval(function() {
-            // 1. 先讓畫面變透明（淡出）
-            bar.style.opacity = 0;
+            currentIndex = (currentIndex + 1) % newsList.length;
+            var currentNews = newsList[currentIndex];
             
-            // 2. 在透明的瞬間（0.4秒後）偷偷更換內容與連結
-            setTimeout(function() {
-                currentIndex = (currentIndex + 1) % newsList.length;
-                var currentNews = newsList[currentIndex];
-                
-                bar.innerText = currentNews.text;
-                bar.href = currentNews.link;
-                bar.style.backgroundColor = currentNews.bg;
-                
-                // 3. 換好後重新變回不透明（淡入）
-                bar.style.opacity = 1;
-            }, 4000.1); 
+            bar.innerText = currentNews.text;
+            bar.href = currentNews.link;
+            bar.style.backgroundColor = currentNews.bg;
         }, 4000);
     }
 })();
 </script>
-
 
 
     <div id="home-page" class="page">
