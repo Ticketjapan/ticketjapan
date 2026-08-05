@@ -461,7 +461,7 @@ details .toggle-icon::before {
             <!-- 最終報價輸出總和欄位 -->
             <div class="fixed-calc-row" style="background:#ffffaa; padding:10px; border-radius:6px; margin-top:15px; border-top:none;">
                 <span style="font-size:18px; color:#000;">報價 (HKD)</span>
-                <span id="prod-final-hkd" style="font-size:18px; color:#000;">$80</span>
+                <span id="prod-final-hkd" style="font-size:18px; color:#000;">$0</span>
             </div>
 
             <p style="font-size:12px; color:#64748b; text-align:center; margin:13px 0 0 0; font-weight:500;">試算結果供參考，請以報價為準</p>
@@ -520,8 +520,6 @@ function calculateProductTotal() {
         var price = parseFloat(priceVal) || 0;
         var ship = parseFloat(shipVal) || 0;
         
-        // 核心修正：只有當價格大於 0 或送料大於 0 時，才算有效資料！
-        // 如果客人把數字刪掉或打 0，這一行就會被徹底跳過（等同刪除）
         if (price > 0 || ship > 0) {
             activeItems.push({
                 price: priceVal,
@@ -535,7 +533,6 @@ function calculateProductTotal() {
     // 第二步：重新刷新所有 30 行的畫面與數值
     // ==========================================
     var grandTotalHkd = 0;
-    // 計算總共要顯示幾行：有效資料行數 + 1 行空白輸入行
     var rowsToDisplay = Math.min(30, Math.max(1, activeItems.length + 1));
     
     for (var i = 1; i <= 30; i++) {
@@ -545,17 +542,14 @@ function calculateProductTotal() {
         var checkInput = document.getElementById('item-check-' + i);
         
         if (i <= rowsToDisplay) {
-            rowEl.style.display = 'grid'; // 顯示該行
+            rowEl.style.display = 'grid'; 
             
             if (i <= activeItems.length) {
-                // 【有資料的行數】依序填入剛剛收集到的有效數據
                 var data = activeItems[i - 1];
-                
                 priceInput.value = data.price;
                 shipInput.value = data.ship;
                 checkInput.checked = data.checked;
                 
-                // 計算此行港幣小計
                 var p = parseFloat(data.price) || 0;
                 var s = parseFloat(data.ship) || 0;
                 var rowJpy = p + s;
@@ -571,14 +565,12 @@ function calculateProductTotal() {
                 grandTotalHkd += rowHkd;
                 
             } else {
-                // 【最後一行的空白預備行】徹底清空，等待新輸入
                 priceInput.value = "";
                 shipInput.value = "";
                 checkInput.checked = false;
                 document.getElementById('item-hkd-' + i).innerText = '$0';
             }
         } else {
-            // 【超過範圍的行數】隱藏並清空
             rowEl.style.display = 'none';
             priceInput.value = "";
             shipInput.value = "";
@@ -588,24 +580,28 @@ function calculateProductTotal() {
     }
     
     // ==========================================
-    // 第三步：計算總運費與最終報價
+    // 第三步：計算總運費與最終報價（核心修正部分）
     // ==========================================
     var weightInput = document.getElementById('calc-weight');
     var weight = parseFloat(weightInput.value);
     if (weightInput.value == "" || isNaN(weight) || weight < 0) {
-        weightInput.style.borderColor = "#dc2626";
+        weightInput.style.borderColor = "#cbd5e1"; // 初始或空值時不顯示紅色警示框
         weight = 0;
-    } else {
+    } else if (weight > 0) {
         weightInput.style.borderColor = "#cbd5e1";
     }
     
     var shippingFeeHkd = weight * 25;
     var finalTotal = 0;
+    
+    // 💡 核心邏輯修正：
+    // 只有當「商品港幣小計大於 0」或者「空運重量大於 0（客人單純想算運費）」時，才加上代購服務費 $80 進行總計。
+    // 如果兩者都是 0，則直接輸出 $0，絕不出現未輸入就顯示 $80 的狀況！
     if (grandTotalHkd > 0 || shippingFeeHkd > 0) {
         finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
         document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
     } else {
-        document.getElementById('prod-final-hkd').innerText = '$80';
+        document.getElementById('prod-final-hkd').innerText = '$0';
     }
 }
 </script>
