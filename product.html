@@ -506,45 +506,90 @@ function setupCalculatorRows() {
 }
 
 function calculateProductTotal() {
-    var grandTotalHkd = 0;
     var rate = 0.056;
     
-    // 迴圈上限同步改為 30
+    // ==========================================
+    // 第一步：收集當前所有「有輸入資料」的商品
+    // ==========================================
+    var activeItems = [];
     for (var i = 1; i <= 30; i++) {
-        var priceEl = document.getElementById('item-price-' + i);
-        var shipEl = document.getElementById('item-ship-' + i);
+        var priceVal = document.getElementById('item-price-' + i).value;
+        var shipVal = document.getElementById('item-ship-' + i).value;
+        var isChecked = document.getElementById('item-check-' + i).checked;
         
-        var price = parseFloat(priceEl.value) || 0;
-        var ship = parseFloat(shipEl.value) || 0;
+        var price = parseFloat(priceVal) || 0;
+        var ship = parseFloat(shipVal) || 0;
         
-        var rowJpy = price + ship;
-        var rowHkd = 0;
-        
-        if (rowJpy > 0) {
-            if (i <= 6) {
-                rowHkd = rowJpy * rate;
-            } else {
-                rowHkd = (rowJpy * rate) + 10;
-            }
-            
-            var checkEl = document.getElementById('item-check-' + i);
-            if (checkEl && checkEl.checked) {
-                rowHkd += (300 * 0.056);
-            }
-            
-            // 【核心修改】如果當前行有輸入金額，且還有下一行（未滿 30 行），就自動顯示下一行
-            if (i < 30) {
-                var nextRow = document.getElementById('prod-row-' + (i + 1));
-                if (nextRow) {
-                    nextRow.style.display = 'grid';
-                }
-            }
+        // 只要價格、送料大於 0，或者該行有文字輸入（非空白），就視為有效行
+        if (price > 0 || ship > 0 || priceVal !== "" || shipVal !== "") {
+            activeItems.push({
+                price: priceVal,
+                ship: shipVal,
+                checked: isChecked
+            });
         }
-        
-        document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
-        grandTotalHkd += rowHkd;
     }
     
+    // ==========================================
+    // 第二步：重新將資料塞回前幾行，並隱藏多餘的行數
+    // ==========================================
+    var grandTotalHkd = 0;
+    // 計算應該顯示多少行：有效行數 + 1（用來輸入新商品），但最多 30 行，最少顯示 1 行
+    var rowsToDisplay = Math.min(30, Math.max(1, activeItems.length + 1));
+    
+    for (var i = 1; i <= 30; i++) {
+        var rowEl = document.getElementById('prod-row-' + i);
+        var priceInput = document.getElementById('item-price-' + i);
+        var shipInput = document.getElementById('item-ship-' + i);
+        var checkInput = document.getElementById('item-check-' + i);
+        
+        if (i <= rowsToDisplay) {
+            rowEl.style.display = 'grid'; // 顯示該行
+            
+            // 如果這行在有效資料範圍內，就填入剛才收集到的遞補資料
+            if (i <= activeItems.length) {
+                var data = activeItems[i - 1];
+                // 只有當使用者沒在操作該輸入框時才強制更新值，避免干擾游標
+                if (document.activeElement !== priceInput) priceInput.value = data.price;
+                if (document.activeElement !== shipInput) shipInput.value = data.ship;
+                checkInput.checked = data.checked;
+                
+                // 計算港幣小計
+                var p = parseFloat(data.price) || 0;
+                var s = parseFloat(data.ship) || 0;
+                var rowJpy = p + s;
+                var rowHkd = 0;
+                
+                if (rowJpy > 0) {
+                    rowHkd = (i <= 6) ? (rowJpy * rate) : ((rowJpy * rate) + 10);
+                    if (data.checked) {
+                        rowHkd += (300 * 0.056);
+                    }
+                }
+                document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
+                grandTotalHkd += rowHkd;
+                
+            } else {
+                // 這是最後一行空白行（用來等客人輸入新資料的）
+                // 只有當使用者沒在操作它時，才清空它
+                if (document.activeElement !== priceInput) priceInput.value = "";
+                if (document.activeElement !== shipInput) shipInput.value = "";
+                checkInput.checked = false;
+                document.getElementById('item-hkd-' + i).innerText = '$0';
+            }
+        } else {
+            // 超過顯示範圍的行數，直接隱藏並清空
+            rowEl.style.display = 'none';
+            priceInput.value = "";
+            shipInput.value = "";
+            checkInput.checked = false;
+            document.getElementById('item-hkd-' + i).innerText = '$0';
+        }
+    }
+    
+    // ==========================================
+    // 第三步：計算總運費與最終報價（保持原樣）
+    // ==========================================
     var weightInput = document.getElementById('calc-weight');
     var weight = parseFloat(weightInput.value);
     if (weightInput.value == "" || isNaN(weight) || weight < 0) {
