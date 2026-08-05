@@ -485,16 +485,22 @@ function hideProductCalculator() {
 function setupCalculatorRows() {
     var container = document.getElementById('calc-rows-container');
     if (container.children.length > 0) return;
+    
     var html = '';
-    for (var i = 1; i <= 10; i++) {
+    // 上限修改為最多 30 個商品
+    for (var i = 1; i <= 30; i++) {
         var extraText = (i >= 7) ? '<span style="font-size:9px;color:#dc2626;">(+$10)</span>' : '';
-        html += '<div class="prod-grid-row">' +
-                '<label>' + i + extraText + '</label>' +
-                '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
-                '<div style="display: flex; justify-content:center; align-items:center;"><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
-                '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
-                '</div>';
+        
+        // 預設第一行顯示 (display: grid)，其餘第 2~30 行先隱藏 (display: none)
+        var displayStyle = (i === 1) ? 'display: grid;' : 'display: none;';
+        
+        html += '<div class="prod-grid-row" id="prod-row-' + i + '" style="' + displayStyle + '">' +
+            '<label>' + i + extraText + '</label>' +
+            '<div><input type="number" id="item-price-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div><input type="number" id="item-ship-' + i + '" placeholder="0" min="0" oninput="calculateProductTotal()"></div>' +
+            '<div style="display: flex; justify-content:center; align-items:center;"><input type="checkbox" id="item-check-' + i + '" onchange="calculateProductTotal()"></div>' +
+            '<div class="hk-subtotal" id="item-hkd-' + i + '">$0</div>' +
+            '</div>';
     }
     container.innerHTML = html;
 }
@@ -503,9 +509,14 @@ function calculateProductTotal() {
     var grandTotalHkd = 0;
     var rate = 0.056;
     
-    for (var i = 1; i <= 10; i++) {
-        var price = parseFloat(document.getElementById('item-price-' + i).value) || 0;
-        var ship = parseFloat(document.getElementById('item-ship-' + i).value) || 0;
+    // 迴圈上限同步改為 30
+    for (var i = 1; i <= 30; i++) {
+        var priceEl = document.getElementById('item-price-' + i);
+        var shipEl = document.getElementById('item-ship-' + i);
+        
+        var price = parseFloat(priceEl.value) || 0;
+        var ship = parseFloat(shipEl.value) || 0;
+        
         var rowJpy = price + ship;
         var rowHkd = 0;
         
@@ -520,6 +531,14 @@ function calculateProductTotal() {
             if (checkEl && checkEl.checked) {
                 rowHkd += (300 * 0.056);
             }
+            
+            // 【核心修改】如果當前行有輸入金額，且還有下一行（未滿 30 行），就自動顯示下一行
+            if (i < 30) {
+                var nextRow = document.getElementById('prod-row-' + (i + 1));
+                if (nextRow) {
+                    nextRow.style.display = 'grid';
+                }
+            }
         }
         
         document.getElementById('item-hkd-' + i).innerText = rowHkd > 0 ? '$' + rowHkd.toFixed(1) : '$0';
@@ -528,7 +547,7 @@ function calculateProductTotal() {
     
     var weightInput = document.getElementById('calc-weight');
     var weight = parseFloat(weightInput.value);
-    if (weightInput.value === "" || isNaN(weight) || weight < 0) {
+    if (weightInput.value == "" || isNaN(weight) || weight < 0) {
         weightInput.style.borderColor = "#dc2626";
         weight = 0;
     } else {
@@ -536,15 +555,16 @@ function calculateProductTotal() {
     }
     
     var shippingFeeHkd = weight * 25;
-        // 如果商品金額與運費加起來是 0，代表客人完全未輸入，報價直接顯示 $0
     var finalTotal = 0;
     if (grandTotalHkd > 0 || shippingFeeHkd > 0) {
         finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+        document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
+    } else {
+        document.getElementById('prod-final-hkd').innerText = '$80';
     }
-    document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
 }
 </script>
-
+        
 <script>
 function toggleCategory(catId) {
     var target = document.getElementById(catId);
