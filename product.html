@@ -445,7 +445,7 @@ details .toggle-icon::before {
             <div class="fixed-calc-row" style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
             <span style="color:#1e3a8a; flex-shrink: 0; white-space: nowrap;">代購服務費</span>
             <span style="color:#0000C6; font-weight:normal; font-size:12px; flex-grow: 1; text-align: center; line-height: 1.2;">($80/6 links, 可同單結帳計1 link, 7th~起+$10@)</span>
-            <span class="fee-amount-text" style="flex-shrink: 0; white-space: nowrap;">$80</span>
+            <span id="calc-service-fee" class="fee-amount-text" style="flex-shrink: 0; white-space: nowrap; ">$80</span>
 </div>
 
 
@@ -534,6 +534,7 @@ function calculateProductTotal() {
     // ==========================================
     var grandTotalHkd = 0;
     var rowsToDisplay = Math.min(30, Math.max(1, activeItems.length + 1));
+    var extraLinksFee = 0; // 用來累計第 7 行起每行 +$10 的費用
     
     for (var i = 1; i <= 30; i++) {
         var rowEl = document.getElementById('prod-row-' + i);
@@ -556,7 +557,15 @@ function calculateProductTotal() {
                 var rowHkd = 0;
                 
                 if (rowJpy > 0) {
-                    rowHkd = (i <= 6) ? (rowJpy * rate) : ((rowJpy * rate) + 10);
+                    // 計算商品本身的日幣換算港幣
+                    rowHkd = rowJpy * rate;
+                    
+                    // 如果是第 7 行或以上，記錄額外服務費 $10
+                    if (i >= 7) {
+                        extraLinksFee += 10;
+                    }
+                    
+                    // 品檢費用 (+300円)
                     if (data.checked) {
                         rowHkd += (300 * 0.056);
                     }
@@ -580,25 +589,32 @@ function calculateProductTotal() {
     }
     
     // ==========================================
-    // 第三步：計算總運費與最終報價（核心修正部分）
+    // 第三步：計算總運費與最終報價
     // ==========================================
     var weightInput = document.getElementById('calc-weight');
     var weight = parseFloat(weightInput.value);
     if (weightInput.value == "" || isNaN(weight) || weight < 0) {
-        weightInput.style.borderColor = "#cbd5e1"; // 初始或空值時不顯示紅色警示框
+        weightInput.style.borderColor = "#cbd5e1";
         weight = 0;
     } else if (weight > 0) {
         weightInput.style.borderColor = "#cbd5e1";
     }
     
     var shippingFeeHkd = weight * 25;
-    var finalTotal = 0;
     
-    // 💡 核心邏輯修正：
-    // 只有當「商品港幣小計大於 0」或者「空運重量大於 0（客人單純想算運費）」時，才加上代購服務費 $80 進行總計。
-    // 如果兩者都是 0，則直接輸出 $0，絕不出現未輸入就顯示 $80 的狀況！
+    // 💡 核心修正：動態計算並更新介面上的「代購服務費」顯示
+    // 如果有輸入商品或運費，基礎服務費為 $80，再加上超出行數的追加費
+    var currentServiceFee = (grandTotalHkd > 0 || shippingFeeHkd > 0) ? (80 + extraLinksFee) : 0;
+    
+    // 將計算結果實時反映到畫面的「代購服務費」那一欄
+    var serviceFeeEl = document.getElementById('calc-service-fee');
+    if (serviceFeeEl) {
+        serviceFeeEl.innerText = '$' + currentServiceFee;
+    }
+    
+    // 計算最終總報價
     if (grandTotalHkd > 0 || shippingFeeHkd > 0) {
-        finalTotal = grandTotalHkd + 80 + shippingFeeHkd;
+        var finalTotal = grandTotalHkd + 80 + extraLinksFee + shippingFeeHkd;
         document.getElementById('prod-final-hkd').innerText = '$' + Math.round(finalTotal);
     } else {
         document.getElementById('prod-final-hkd').innerText = '$0';
