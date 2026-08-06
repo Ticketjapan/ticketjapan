@@ -52,7 +52,7 @@
 
         <div id="queryResult" class="result-box"></div>
 
-        <a href="https://wa.me/85291626197" target="_blank" class="whatsapp-btn">💬 Whatsapp聯絡</a>
+        <a href="https://wa.me/85291626197" target="_blank" class="whatsapp-btn">💬 WhatsApp聯絡</a>
         <button class="back-btn" onclick="window.location.href='index.html'">返回主選單</button>
     </div>
 
@@ -87,7 +87,7 @@
                     resultBox.className = "result-box status-success";
                     resultBox.style.textAlign = "left";
                     
-                    let linkHtml = (order.link && order.link !== "-") ? `<a href="${order.link}" target="_blank" style="color:#a21caf;text-decoration:underline;font-weight:600;">點擊查看商品連結</a>` : "無相關連結";
+                    let linkHtml = (order.link && order.link !== "-") ? `<a href="${order.link}" target="_blank" style="color:#a21caf;text-decoration:underline;font-weight:600;">Click Me</a>` : "無相關連結";
                     
                     resultBox.innerHTML = 
                         '<div class="result-title"><span>📋 訂單資料 (' + order.type + ')</span><span style="color:#d81b60;">[' + order.progress + ']</span></div>' +
@@ -101,7 +101,7 @@
                     showMsg("result-box status-fail", "❌ " + order.message);
                 }
             } catch (error) {
-                showMsg("result-box status-fail", "⚠️ 數據庫連線逾時，請點擊下方按鈕聯絡專員。");
+                showMsg("result-box status-fail", "⚠️ Fail loading，請點擊下方WhatsApp我地幫你check。");
             }
         }
 
