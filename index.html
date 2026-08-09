@@ -52,51 +52,48 @@
 
 <script>
 (function() {
-    var newsList = [
-        {
-            text: "YOASOBI STADIUM TOUR 2026-2027 ⚡",
-            link: "https://www.instagram.com/stories/highlights/17954933831665339/",
-            bg: "#AE8F00" 
-        },
-        {
-            text: "ONE OK ROCK DETOX JAPAN FINAL 2026 ⚡",
-            link: "https://www.instagram.com/stories/highlights/17954933831665339/",
-            bg: "#AE8F00"
-        },
-        {
-            text: "島袋寬子 SPEEDWAY Aniversary Live 2026 ⚡ ",
-            link: "https://www.instagram.com/stories/highlights/17954933831665339/",
-            bg: "#AE8F00" 
-        },
-        {
-            text: "BABYMONSTER CHOOM WORLD TOUR IN JAPAN ⚡ ",
-            link: "https://www.instagram.com/stories/highlights/17954933831665339/",
-            bg: "#AE8F00" 
-        }
-                {
-            text: "BIGBANG 2026-2027 WORLD TOUR〈 XX : COSMOS 〉⚡ ",
-            link: "https://www.instagram.com/stories/highlights/17954933831665339/",
-            bg: "#AE8F00" 
-        }
-    ];
-
-    var currentIndex = 0;
-    var bar = document.getElementById('top-announcement-bar');
-
-    if (bar && newsList.length > 1) {
-        // 每 4 秒鐘（4000毫秒）直接、乾脆地更換內容
-        setInterval(function() {
-            currentIndex = (currentIndex + 1) % newsList.length;
-            var currentNews = newsList[currentIndex];
-            
-            bar.innerText = currentNews.text;
-            bar.href = currentNews.link;
-            bar.style.backgroundColor = currentNews.bg;
-        }, 3000);
-    }
+ var newsList = [
+ {
+ text: "YOASOBI STADIUM TOUR 2026-2027 ⚡", 
+ link: "https://www.instagram.com/stories/highlights/17954933831665339/",
+ bg: "#AE8F00" 
+ },
+ {
+ text: "ONE OK ROCK DETOX JAPAN FINAL 2026 ⚡", 
+ link: "https://www.instagram.com/stories/highlights/17954933831665339/",
+ bg: "#AE8F00"
+ },
+ {
+ text: "島袋寬子 SPEEDWAY Aniversary Live 2026 ⚡", 
+ link: "https://www.instagram.com/stories/highlights/17954933831665339/",
+ bg: "#AE8F00" 
+ },
+ {
+ text: "BABYMONSTER CHOOM WORLD TOUR IN JAPAN ⚡", 
+ link: "https://www.instagram.com/stories/highlights/17954933831665339/",
+ bg: "#AE8F00" 
+ }, // <-- 這裡補上了漏掉的逗號
+ {
+ text: "BIGBANG 2026-2027 WORLD TOUR〈 XX : COSMOS 〉 ⚡", 
+ link: "https://www.instagram.com/stories/highlights/17954933831665339/",
+ bg: "#AE8F00" 
+ }
+ ];
+ var currentIndex = 0;
+ var bar = document.getElementById('top-announcement-bar');
+ if (bar && newsList.length > 1) {
+ // 每 3 秒鐘（3000毫秒）直接、乾脆地更換內容
+ setInterval(function() {
+ currentIndex = (currentIndex + 1) % newsList.length;
+ var currentNews = newsList[currentIndex];
+ 
+ bar.innerText = currentNews.text;
+ bar.href = currentNews.link;
+ bar.style.backgroundColor = currentNews.bg;
+ }, 3000);
+ }
 })();
 </script>
-
 
     <div id="home-page" class="page">
         <div class="logo-container">
